@@ -1,0 +1,16 @@
+tuoteen luonti
+
+
+tuoteen nimi
+numero
+lisätieto
+määrä
+hinta
+
+asetksien muutto
+
+haku
+
+tuoteen poisto
+
+tuotehäviää
