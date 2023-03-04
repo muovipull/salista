@@ -66,6 +66,7 @@ public class alku : MonoBehaviour
     void Start()
     {
 
+        
         print(onko + "onko");
         alku.onko = PlayerPrefs.GetString("Tallennus", "1");
         print(salasananvaihto.salistatlalla);
@@ -100,11 +101,17 @@ public class alku : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
+
         {
             PlayerPrefs.DeleteAll();
             print(alku.onko);
             print(salasananvaihto.salistatlalla);
             print("tyhjä");
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            print(aloitus_jos_aloitusvalmis.jäljellä_olevat_yritykset);
+
         }
     }
 }

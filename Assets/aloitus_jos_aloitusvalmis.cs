@@ -9,6 +9,7 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
     public int loppuaikas = 1200;
     public int loppuaikam = 20;
     public static int jäljellä_olevat_yritykset = 5;
+    public kello Kello;
     public InputField salis;
     public GameObject vaara;
     public GameObject seuraaava;
@@ -19,7 +20,9 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
     public GameObject rangaistus;
     public TextMeshProUGUI text;
     public Text rangaistus_texsti;
-
+    public float secund = 0;
+    public float min = 0;
+   
 
     public void alku()
     
@@ -40,15 +43,7 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
     public void eteenpain()
     {
         alku();
-        if (jäljellä_olevat_yritykset <= 0)
-        {
-
-            jäljellä_olevat_yritykset = 0;
-            PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
-            tama.SetActive(false);
-            rangaistus.SetActive(true);
-        }
-        else if (salasananvaihto.salistatlalla == salis.text)
+        if (salasananvaihto.salistatlalla == salis.text)
         {
             seuraaava.SetActive(true);
             jaa.SetActive(false);
@@ -57,6 +52,24 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
             jäljellä_olevat_yritykset = 5;
             PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
         }
+
+
+
+
+        else if (jäljellä_olevat_yritykset <= 0)
+        {
+            print("toimmiko");
+           
+            PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
+            tama.SetActive(false);
+            rangaistus.SetActive(true);
+            jäljellä_olevat_yritykset = 0;
+            rangaistus_texsti.text = "olet yrittänyt liian monta kertaa väärin siksi joudut odottamaan\n" + loppuaikam + "\n minuuttia ennen kuin voin taas kirjautua";
+
+
+
+        }
+        
         else
         {
             jäljellä_olevat_yritykset = jäljellä_olevat_yritykset - 1;
@@ -73,25 +86,28 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    { 
+    {
+        
         alku();
-        jäljellä_olevat_yritykset=PlayerPrefs.GetInt("jäljellä", 5);
+        
+        jäljellä_olevat_yritykset =PlayerPrefs.GetInt("jäljellä", 5);
         loppuaikam = PlayerPrefs.GetInt("loppuaikam", 20);
         loppuaikas = PlayerPrefs.GetInt("loppuaikas", 1200);
         print(jäljellä_olevat_yritykset);
+        print(loppuaikas);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (jäljellä_olevat_yritykset <= 0)
-        {
 
-            jäljellä_olevat_yritykset = 0;
-            rangaistus_texsti.text = "olet yrittänyt liian monta kertaa väärin siksi joudut odottamaan\n" +loppuaikam+"\n minuuttia ennen kuin voin taas kirjautua";
-            
-            
-        }
+       
+        
+            //timer += Time.deltaTime;
+            //print(timer);
+        
+
+        
 
     }
     public void OnApplicationFocus(bool on)
@@ -100,7 +116,11 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
         {
             PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
             PlayerPrefs.SetInt("loppuaikam", loppuaikam);
-            PlayerPrefs.SetInt("´loppuaikas", loppuaikas);
+            PlayerPrefs.SetFloat("loppuaikas", loppuaikas);
+            print(loppuaikas);
+
+
+
 
         }
     }
