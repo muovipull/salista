@@ -6,10 +6,10 @@ using TMPro;
 
 public class aloitus_jos_aloitusvalmis : MonoBehaviour
 {
-    public int loppuaikas = 1200;
-    public int loppuaikam = 20;
+    
     public static int jäljellä_olevat_yritykset = 5;
-    public kello Kello;
+    public static bool kello =false;
+    [Header("omat")]
     public InputField salis;
     public GameObject vaara;
     public GameObject seuraaava;
@@ -19,9 +19,8 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
     public GameObject uudelleen;
     public GameObject rangaistus;
     public TextMeshProUGUI text;
-    public Text rangaistus_texsti;
-    public float secund = 0;
-    public float min = 0;
+    
+
    
 
     public void alku()
@@ -29,7 +28,7 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
     {
         if (jäljellä_olevat_yritykset <= 0)
         {
-
+            kello = true;
             jäljellä_olevat_yritykset = 0;
             PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
             tama.SetActive(false);
@@ -59,12 +58,12 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
         else if (jäljellä_olevat_yritykset <= 0)
         {
             print("toimmiko");
-           
+            jäljellä_olevat_yritykset = 0;
             PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
             tama.SetActive(false);
             rangaistus.SetActive(true);
-            jäljellä_olevat_yritykset = 0;
-            rangaistus_texsti.text = "olet yrittänyt liian monta kertaa väärin siksi joudut odottamaan\n" + loppuaikam + "\n minuuttia ennen kuin voin taas kirjautua";
+            
+            
 
 
 
@@ -87,14 +86,12 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        uudelleen.SetActive(false);
         alku();
         
         jäljellä_olevat_yritykset =PlayerPrefs.GetInt("jäljellä", 5);
-        loppuaikam = PlayerPrefs.GetInt("loppuaikam", 20);
-        loppuaikas = PlayerPrefs.GetInt("loppuaikas", 1200);
-        print(jäljellä_olevat_yritykset);
-        print(loppuaikas);
+        
+        
     }
 
     // Update is called once per frame
@@ -103,8 +100,7 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
 
        
         
-            //timer += Time.deltaTime;
-            //print(timer);
+            
         
 
         
@@ -115,10 +111,7 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
         if(on==false)
         {
             PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
-            PlayerPrefs.SetInt("loppuaikam", loppuaikam);
-            PlayerPrefs.SetFloat("loppuaikas", loppuaikas);
-            print(loppuaikas);
-
+           
 
 
 
