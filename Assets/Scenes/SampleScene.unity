@@ -2464,7 +2464,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: V 2.2
+  m_text: V 2.4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -3918,7 +3918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &753588974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3931,9 +3931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd40f2fa371133145963af297cfbe991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loppuaikas: 1200
-  loppuaikam: 20
-  Kello: {fileID: 0}
   salis: {fileID: 1386828834}
   vaara: {fileID: 677460707}
   seuraaava: {fileID: 60682939}
@@ -3943,9 +3940,6 @@ MonoBehaviour:
   uudelleen: {fileID: 608447858}
   rangaistus: {fileID: 2087792590}
   text: {fileID: 714053429}
-  rangaistus_texsti: {fileID: 686463558}
-  secund: 0
-  min: 0
 --- !u!114 &753588975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7833,7 +7827,6 @@ MonoBehaviour:
   a1: {fileID: 1215914244}
   jos_laitettu: {fileID: 753588973}
   salista: {fileID: 60682939}
-  aloitus_Jos_Aloitusvalmis: {fileID: 753588974}
 --- !u!114 &1841777925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8901,7 +8894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2107618689
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8937,8 +8930,10 @@ MonoBehaviour:
   timer: 0
   istime: 0
   secund: 0
+  uudelleen: {fileID: 608447858}
+  rangaistus: {fileID: 686463558}
+  rangaistusm: 20
   minutes: 0
-  Aloitus_Jos_Aloitusvalmis: {fileID: 0}
 --- !u!114 &2107618691
 MonoBehaviour:
   m_ObjectHideFlags: 0

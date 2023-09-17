@@ -4,16 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 public class alku : MonoBehaviour
 {
+    [Header("input")]
     public InputField uusi1;
     public InputField uusi2;
-
+    [Header("gameobject")]
     public GameObject ero;
     public GameObject tyhja;
     public GameObject a1;
     public GameObject jos_laitettu;
     public GameObject salista;
     public static string onko = "1";
-    public aloitus_jos_aloitusvalmis aloitus_Jos_Aloitusvalmis;
+    //public aloitus_jos_aloitusvalmis aloitus_Jos_Aloitusvalmis;
 
     public void seuraava()
     {
@@ -35,7 +36,7 @@ public class alku : MonoBehaviour
 
 
                 salista.SetActive(true);
-                alku.onko = "2";
+                //alku.onko = "2";
                 alku.onko = PlayerPrefs.GetString("Tallennus", "3");
                 salasananvaihto.salistatlalla = uusi1.text;
 
@@ -43,7 +44,7 @@ public class alku : MonoBehaviour
 
 
                 PlayerPrefs.SetString("Tallennus1", salasananvaihto.salistatlalla);
-                print(alku.onko);
+                //print(alku.onko);
 
 
 
@@ -60,14 +61,9 @@ public class alku : MonoBehaviour
 
     }
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    public void aha()
     {
-
-        
-        print(onko + "onko");
+        print(onko + "  " + "onko");
         alku.onko = PlayerPrefs.GetString("Tallennus", "1");
         print(salasananvaihto.salistatlalla);
         print(alku.onko);
@@ -82,18 +78,26 @@ public class alku : MonoBehaviour
         {
             if (aloitus_jos_aloitusvalmis.jäljellä_olevat_yritykset == 0)
             {
-                aloitus_Jos_Aloitusvalmis.alku();
+                //aloitus_Jos_Aloitusvalmis.alku();
 
             }
             else
             {
-                jos_laitettu.SetActive(true);
-                tyhja.SetActive(false);
-                ero.SetActive(false);
-                a1.SetActive(false);
+            jos_laitettu.SetActive(true);
+            tyhja.SetActive(false);
+            ero.SetActive(false);
+            a1.SetActive(false);
 
             }
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        aha();
+        
+        
 
     }
 
@@ -111,6 +115,7 @@ public class alku : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             print(aloitus_jos_aloitusvalmis.jäljellä_olevat_yritykset);
+            aloitus_jos_aloitusvalmis.jäljellä_olevat_yritykset += 5;
 
         }
     }

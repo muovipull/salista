@@ -8,7 +8,7 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
 {
     
     public static int jäljellä_olevat_yritykset = 5;
-    public static bool kello =false;
+    public static int kello = 0;
     [Header("omat")]
     public InputField salis;
     public GameObject vaara;
@@ -28,7 +28,7 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
     {
         if (jäljellä_olevat_yritykset <= 0)
         {
-            kello = true;
+            kello = 1;
             jäljellä_olevat_yritykset = 0;
             PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
             tama.SetActive(false);
@@ -87,11 +87,12 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
     void Start()
     {
         uudelleen.SetActive(false);
-        alku();
         
         jäljellä_olevat_yritykset =PlayerPrefs.GetInt("jäljellä", 5);
-        
-        
+        kello = PlayerPrefs.GetInt("ke", 0);
+        alku();
+
+
     }
 
     // Update is called once per frame
@@ -111,6 +112,7 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
         if(on==false)
         {
             PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
+            PlayerPrefs.SetInt("ke", kello);
            
 
 

@@ -22,6 +22,11 @@ public class sahkoposti : MonoBehaviour
             sahko.gameObject.SetActive(true);
             Kato.SetActive(false);
         }
+        else 
+        {
+            aloitus_jos_aloitusvalmis.jäljellä_olevat_yritykset -= 1;
+            
+        }
 
 
     }

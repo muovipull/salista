@@ -10,7 +10,7 @@ public class kello : MonoBehaviour
 {
     
     public float timer = 0.0f;
-    public bool istime = false;
+    public int istime = 0;
     public int secund = 0;
     public GameObject uudelleen;
     public Text rangaistus;
@@ -19,7 +19,7 @@ public class kello : MonoBehaviour
     void Update()
     {
         StartTimer();
-        if(istime==true)
+        if(istime==1)
         {
             rangaistus.text = "olet yritt‰nyt liian monta kertaa v‰‰rin siksi joudut odottamaan\n" + rangaistusm + "\n minuuttia ennen kuin voin taas kirjautua";
             timer += Time.deltaTime;
@@ -30,6 +30,7 @@ public class kello : MonoBehaviour
 
 
         }
+        
         if (rangaistusm == 0)
         {
             aloitus_jos_aloitusvalmis.j‰ljell‰_olevat_yritykset = 5;
@@ -58,14 +59,14 @@ public class kello : MonoBehaviour
     }
     public void StartTimer()
     {
-        if (aloitus_jos_aloitusvalmis.kello == true)
+        if (aloitus_jos_aloitusvalmis.kello == 1)
         {
-            istime = true;
+            istime = 1;
         }
     }
     public void stop()
     {
-        istime=false;
+        istime=0;
         
     }
     public void ResetTimer()
@@ -86,6 +87,7 @@ public class kello : MonoBehaviour
     void Start()
     {
         rangaistusm = PlayerPrefs.GetInt("rangasitus", 20);
+        istime = PlayerPrefs.GetInt("istime", istime); 
     }
 
 
@@ -94,7 +96,7 @@ public class kello : MonoBehaviour
     {
         if (on == false)
         {
-            
+            PlayerPrefs.SetInt("istime", istime);
             PlayerPrefs.SetInt("rangasitus", rangaistusm);
 
 
