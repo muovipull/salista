@@ -110,6 +110,7 @@ public class alku : MonoBehaviour
     }
 
     // Update is called once per frame
+    #if UNITY_EDITOR
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -127,5 +128,5 @@ public class alku : MonoBehaviour
 
         }
     }
-    
+    #endif
 }
