@@ -7,3 +7,4 @@ Assembly-CSharp.csproj
 obj
 *.sln
 website
+UserSettings
