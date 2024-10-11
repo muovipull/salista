@@ -30,7 +30,7 @@ public class päivitys : MonoBehaviour
             avauskerta = 1;
             PlayerPrefs.SetInt("avauskerta", avauskerta);
         }
-        if (versio != Application.version || avauskerta != 0)
+        if (versio != Application.version && avauskerta > 1)
         {
             avaa();
             versio = Application.version;
