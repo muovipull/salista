@@ -8,6 +8,7 @@ public class Kokellisetominaisuudet : MonoBehaviour
     public GameObject varmistus_koe_käyttö;
     public GameObject koe_poisto;
     public GameObject resetoi_nappi;
+    public GameObject teema;
     public int koe = 0;
     // Start is called before the first frame update
     void Start()
@@ -16,7 +17,7 @@ public class Kokellisetominaisuudet : MonoBehaviour
         if(koe == 1 )
         {
             resetoi_nappi.SetActive(true);
-
+            teema.SetActive(true);
 
         }
     }
@@ -29,6 +30,7 @@ public class Kokellisetominaisuudet : MonoBehaviour
     {
         varmistus_resetointi.SetActive(false);
         varmistus_koe_käyttö.SetActive(false);
+        teema.SetActive(false);
         koe_poisto.SetActive(false);
     
     }
@@ -49,9 +51,11 @@ public class Kokellisetominaisuudet : MonoBehaviour
     }
     public void otakäyttöön()
     {
+        koe = PlayerPrefs.GetInt("koe", 0);
         if (koe == 0)
         {
             resetoi_nappi.gameObject.SetActive(true);
+            teema.gameObject.SetActive(true);
             koe = 1;
             PlayerPrefs.SetInt("koe", koe);
             varmistus_koe_käyttö.gameObject.SetActive(false);
@@ -65,11 +69,12 @@ public class Kokellisetominaisuudet : MonoBehaviour
     {
 
 
-            resetoi_nappi.gameObject.SetActive(false);
-            koe = 0;
-            PlayerPrefs.SetInt("koe", koe);
-            varmistus_koe_käyttö.gameObject.SetActive(false);
-            koe_poisto.SetActive(false) ;
+        resetoi_nappi.gameObject.SetActive(false);
+        teema.gameObject.SetActive(false);
+        koe = 0;
+        PlayerPrefs.SetInt("koe", koe);
+        varmistus_koe_käyttö.gameObject.SetActive(false);
+        koe_poisto.SetActive(false) ;
     }
 
     // Update is called once per frame

@@ -16,16 +16,16 @@ public class popup : MonoBehaviour
     public GameObject näytä;
 
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+    void Start()
+    {
+
     }
     public void avaa()
     {
@@ -33,11 +33,13 @@ public class popup : MonoBehaviour
         {
             pop.SetActive(true);
             auki = 1;
+            avaa_oikea_sivu();
         }
         else
         {
             pop.SetActive(false);
             auki = 0;
+            sivu = 1;
         }
     }
     public void sulje()
@@ -84,6 +86,61 @@ public class popup : MonoBehaviour
     }
     // 4 nappi
     //asetukset
+
+    [Header("sivun muokkaus")]
+    public GameObject sivu_1;
+    public GameObject sivu_2;
+    public GameObject nappi_eteen;
+    public GameObject nappi_taakse;
+    public int sivu = 1;
+
+    public void eteenpäin()
+    {
+        if (sivu == 1) {
+            sivu_1.gameObject.SetActive(false);
+            sivu_2.gameObject.SetActive(true);
+            nappi_eteen.gameObject.SetActive(false);
+            nappi_taakse.gameObject.SetActive(true);
+            sivu = 2;
+        }
+
+
+    }
+    public void taakesepäin()
+    {
+        if (sivu == 2)
+        {
+            nappi_taakse.SetActive(false);
+            nappi_eteen.SetActive(true);
+            sivu_2.gameObject.SetActive(false);
+            sivu_1.gameObject.SetActive(true);
+            sivu = 1;
+        }
+
+    }
+    public void avaa_oikea_sivu()
+    {
+        if (sivu == 2)
+        {
+            nappi_taakse.SetActive(true);
+            nappi_eteen.SetActive(false);
+            sivu_2.gameObject.SetActive(true);
+            sivu_1.gameObject.SetActive(false);
+            sivu = 2;
+        }
+        if (sivu == 1)
+        {
+            sivu_1.gameObject.SetActive(true);
+            sivu_2.gameObject.SetActive(false);
+            nappi_eteen.gameObject.SetActive(true);
+            nappi_taakse.gameObject.SetActive(false);
+            sivu = 1;
+        }
+
+
+
+    }
+    
 
 
 }

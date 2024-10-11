@@ -16,7 +16,7 @@ public class Luo_random : MonoBehaviour
     public int minCharAmount = 10;
     public int maxCharAmount = 30;
     public string salasanarandom = "";
-    public char[] merkit = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v' };
+    public char[] merkit = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'z', '1', '2', '3', '4', '5', '6', '7', '8' ,'9', '0', '!', '?'};
 
     public void peruuta()
     {
@@ -62,12 +62,18 @@ public class Luo_random : MonoBehaviour
     {
         try
         {
+
             pituusint = int.Parse(pituus.text);
-            maxCharAmount = pituusint;
-            minCharAmount = pituusint;
-            salasanarandom = luo_satunnainen();
-            Debug.Log("Satunnainen merkkijono: " + salasanarandom);
-            näyttösalasana.text = salasanarandom;
+            if (pituusint < 51)
+            {
+                maxCharAmount = pituusint;
+                minCharAmount = pituusint;
+                salasanarandom = luo_satunnainen();
+                Debug.Log("Satunnainen merkkijono: " + salasanarandom);
+                näyttösalasana.text = salasanarandom;
+                print(merkit.Length);
+                
+            }
         }
         catch
         {

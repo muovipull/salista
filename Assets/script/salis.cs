@@ -17,14 +17,21 @@ public class salis : MonoBehaviour
 
     public void sanko()
     {
-        if (salainen.text == salasananvaihto.salistatlalla)
+        try
         {
-            sahko.gameObject.SetActive(true);
-            Kato.SetActive(false);
-            salainen.Select();
-            salainen.text = "";
+            if ( salasananvaihto.salistatlalla == salainen.text)
+            {
+                sahko.gameObject.SetActive(true);
+                Kato.SetActive(false);
+                salainen.Select();
+                salainen.text = "";
+            }
         }
+        catch
+        {
+            print("moi");
 
+        }
 
     }
     public void peruna()
@@ -44,10 +51,15 @@ public class salis : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        try
         {
-            sanko();
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                sanko();
+            }
         }
+        catch
+        { print("0 moi"); }
     }
 
 

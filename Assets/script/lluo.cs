@@ -11,17 +11,19 @@ public class lluo : MonoBehaviour
     public TextMeshProUGUI numero1;
     public TextMeshProUGUI lisatieto1;
     public TextMeshProUGUI maara1;
+    public TextMeshProUGUI verkkosivu1;
     public GameObject poista_hyvaksy;
     public GameObject pinkoodi;
     public InputField salis;
     public GameObject peruuta;
 
-    public void Valmistele(string nimi, string numero, string lisatieto, string maara)
+    public void Valmistele(string nimi, string numero, string lisatieto, string maara, string verkkosivu)
     {
         nimi1.text = nimi.ToString();
         numero1.text = numero.ToString();
         lisatieto1.text = lisatieto.ToString();
         maara1.text = maara.ToString();
+        verkkosivu1.text = verkkosivu.ToString();   
     
     }
     //tuotteen poisto
@@ -39,6 +41,7 @@ public class lluo : MonoBehaviour
             poistu.Instance.poista_tuote(this);
             poista_hyvaksy.SetActive(false);
             Destroy(gameObject);
+           
         }
         
        

@@ -16,6 +16,7 @@ public class poistu : MonoBehaviour
     public InputField numero1;
     public InputField lisatieto1;
     public InputField maara1;
+    public InputField verkkosivu1;
     public List<lluo> tavara_lista = new List<lluo>();
     public static poistu Instance;
 
@@ -48,7 +49,7 @@ public class poistu : MonoBehaviour
         
         canvas.SetActive(false); 
         lluo uusikuva = Instantiate(muuttuja, ruudukkoja);
-        uusikuva.Valmistele(nimi1.text, numero1.text, lisatieto1.text, maara1.text);
+        uusikuva.Valmistele(nimi1.text, numero1.text, lisatieto1.text, maara1.text, verkkosivu1.text);
         tavara_lista.Add(uusikuva);
         tallenna();
         canvas1.SetActive(true);
@@ -56,6 +57,7 @@ public class poistu : MonoBehaviour
         numero1.text = "";
         lisatieto1.text = "";
         maara1.text =  "";
+        verkkosivu1.text = "";
     }
 
     public void poistulisa()
@@ -89,7 +91,7 @@ public class poistu : MonoBehaviour
             var arvot = tavara.Split(';');
 
             lluo uusikuva = Instantiate(muuttuja, ruudukkoja);
-            uusikuva.Valmistele(arvot[0], arvot[1], arvot[2], arvot[3]);
+            uusikuva.Valmistele(arvot[0], arvot[1], arvot[2], arvot[3], arvot[4]);
             tavara_lista.Add(uusikuva);
         }
     }
@@ -99,7 +101,7 @@ public class poistu : MonoBehaviour
         string tallenusTeksti = "";
         foreach(var tuote in tavara_lista)
         {
-            tallenusTeksti += $"{tuote.nimi1.text};{tuote.numero1.text};{tuote.lisatieto1.text};{tuote.maara1.text};\n";
+            tallenusTeksti += $"{tuote.nimi1.text};{tuote.numero1.text};{tuote.lisatieto1.text};{tuote.maara1.text};{tuote.verkkosivu1.text};\n";
         }
 
         PlayerPrefs.SetString("Tallennus2", tallenusTeksti);
