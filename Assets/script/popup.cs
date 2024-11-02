@@ -14,6 +14,11 @@ public class popup : MonoBehaviour
     public TMP_Text salasanana_näyttö;
     public GameObject salasanateksti;
     public GameObject näytä;
+    [Header("salainen")]
+    public GameObject depug_nappi;
+    public int kerrat = 0;
+    public int todennus = 0;
+    public TMP_Text versio;
 
     
     
@@ -25,8 +30,40 @@ public class popup : MonoBehaviour
     }
     void Start()
     {
+        depug_nappi.SetActive(false);
+    }
+    public void painettu_salainen()
+    {
+        kerrat++;
+        if (kerrat > 10)
+        {
+            versio.color = Color.red;
+
+
+        }
+
 
     }
+    public void painettu_todennus()
+    {
+        if (kerrat > 10)
+        {
+            
+            todennus++;
+            if (todennus > 5)
+            {
+                depug_nappi.SetActive(true);
+
+            }
+        }
+
+        
+
+
+
+
+    }
+
     public void avaa()
     {
         if (auki == 0)
@@ -34,6 +71,7 @@ public class popup : MonoBehaviour
             pop.SetActive(true);
             auki = 1;
             avaa_oikea_sivu();
+            poistusalasana();
         }
         else
         {

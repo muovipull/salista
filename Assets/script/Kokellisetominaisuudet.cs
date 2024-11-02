@@ -30,7 +30,7 @@ public class Kokellisetominaisuudet : MonoBehaviour
     {
         varmistus_resetointi.SetActive(false);
         varmistus_koe_käyttö.SetActive(false);
-        teema.SetActive(false);
+        teema.SetActive(true);
         koe_poisto.SetActive(false);
     
     }

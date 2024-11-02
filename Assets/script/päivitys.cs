@@ -29,6 +29,9 @@ public class päivitys : MonoBehaviour
         sivu_tekst.text = "sivu " + sivu;
         sivu = 1;
 
+        Application.targetFrameRate = 30;
+        ScreenCapture.CaptureScreenshot("kuva.png");
+
 
         versio = PlayerPrefs.GetString("version", Application.version);
         versio_text.text = $"V {Application.version}";

@@ -55,24 +55,16 @@ public class Kaksi_vaiheinen_tunnistus : MonoBehaviour
     }
 
 
-    public void luo()
-    {
-        string vastaus = GenerateSecretKey();
-
-        print(vastaus+ " vastaus");
-        secret = GenerateSecretKey();
 
 
-    }
-    
 
-    private string otpauthUrl = "otpauth://totp/Salista:"+ Kaksi_vaiheinen_tunnistus.tili +"?secret="+Kaksi_vaiheinen_tunnistus.secret+"&issuer=Salista&digits=6";
+
 
     void Start()
 
     {
-        luo();
-        string qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + UnityWebRequest.EscapeURL(otpauthUrl);
+        secret = GenerateSecretKey();
+        string qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + UnityWebRequest.EscapeURL("otpauth://totp/Salista:" + Kaksi_vaiheinen_tunnistus.tili + "?secret=" + Kaksi_vaiheinen_tunnistus.secret + "&issuer=Salista&digits=6");
         StartCoroutine(LoadQRCode(qrCodeUrl));
         //Kaksi_vaiheinen_tunnistus.secret = GenerateSecretKey();
     }
