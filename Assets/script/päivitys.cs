@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Net.NetworkInformation;
+using System;
 
 public class päivitys : MonoBehaviour
 {
@@ -14,23 +16,33 @@ public class päivitys : MonoBehaviour
     public GameObject seura_napppi;
     public GameObject edelli_nappi;
     public GameObject sivu_1;
-    public GameObject sivu_2;
+    public TextMeshProUGUI sivu_leipa;
     public TextMeshProUGUI sivu_tekst;
+    public GameObject haly;
+    [Serializable]
+    public class sivudata
+    {
+        public string otsikko;
+        [TextArea(1, 15)]
+        public string tesksti;
+    }
+    
+    
+    public List<sivudata> sivut;
+        
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
 
 
-        sivu_1.SetActive(true);
-        sivu_2.SetActive(false);
-        seura_napppi.SetActive(true);
-        edelli_nappi.SetActive(false);
-        sivu_tekst.text = "sivu " + sivu;
-        sivu = 1;
+        
 
         Application.targetFrameRate = 30;
-        ScreenCapture.CaptureScreenshot("kuva.png");
+        
 
 
         versio = PlayerPrefs.GetString("version", Application.version);
@@ -52,27 +64,24 @@ public class päivitys : MonoBehaviour
         if (versio != Application.version && avauskerta == 2)
         {
             avaa();
-            versio = Application.version;
-            PlayerPrefs.SetString("version", versio);
 
 
         }
+        
 
         
 
     }
-
+    
     public void avaa()
     {
 
-        sivu_1.SetActive(true);
-        sivu_2.SetActive(false);
-        seura_napppi.SetActive(true);
-        edelli_nappi.SetActive(false);
-        sivu_tekst.text = "sivu " + sivu;
-        sivu = 1;
-
         päivitykset.SetActive(true);
+        sivu = 0;
+        paivita_Sivu();
+        
+
+  
 
 
 
@@ -87,29 +96,31 @@ public class päivitys : MonoBehaviour
     }
     public void seuraava()
     {
-        if (sivu == 1)
-        {
-            sivu_2.SetActive(true);
-            sivu_1.SetActive(false);
-            edelli_nappi.SetActive(true) ;
-            seura_napppi.SetActive(false);
-            
-            sivu = 2;
+        sivu++;
+        paivita_Sivu();
+        
+        
 
-            sivu_tekst.text = "sivu " + sivu + " versiot 2.5.1-2.5.3";
-        }
 
 
 
     }
+    public void paivita_Sivu()
+    {
+        sivu_tekst.text = "sivu " + (sivu+1) + " " + sivut[sivu].otsikko;
+        sivu_leipa.text = sivut[sivu].tesksti;
+        
+        
+        
+        seura_napppi.SetActive(sivu<sivut.Count-1);
+        edelli_nappi.SetActive(sivu>0);
+    }
+    
     public void edllinen()
     {
-        sivu_1.SetActive(true);
-        sivu_2.SetActive(false);
-        seura_napppi.SetActive(true);
-        edelli_nappi.SetActive(false);
-        sivu = 1;
-        sivu_tekst.text = "sivu " + sivu + " versiot 2.6-2.6.4";
+        sivu--;
+        paivita_Sivu();
+        
 
     }
 }

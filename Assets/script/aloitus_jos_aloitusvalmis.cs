@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Xml.Serialization;
 
 public class aloitus_jos_aloitusvalmis : MonoBehaviour
 {
@@ -19,10 +20,19 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
     public GameObject uudelleen;
     public GameObject rangaistus;
     public TextMeshProUGUI text;
-    
+    public GameObject normi;
 
    
+    public void ohita()
+    {
 
+        normi.SetActive(true);
+        seuraaava.SetActive(false);
+        jaa.SetActive(false);
+        vaara.SetActive(false);
+        tama.SetActive(false);
+
+    }
     public void alku()
     
     {
@@ -42,14 +52,27 @@ public class aloitus_jos_aloitusvalmis : MonoBehaviour
     public void eteenpain()
     {
         alku();
-        if (salasananvaihto.salistatlalla == salis.text)
+        if (salasananvaihto.salistatlalla == salis.text && Kaksi_vaiheinen_tunnistus.otettu == "true")
         {
+
             seuraaava.SetActive(true);
             jaa.SetActive(false);
             vaara.SetActive(false);
             tama.SetActive(false);
             jäljellä_olevat_yritykset = 5;
             PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
+        }
+        if (salasananvaihto.salistatlalla == salis.text && Kaksi_vaiheinen_tunnistus.otettu=="false")
+        {
+            normi.SetActive(true);
+            seuraaava.SetActive(false);
+            jaa.SetActive(false);
+            vaara.SetActive(false);
+            tama.SetActive(false);
+            jäljellä_olevat_yritykset = 5;
+            PlayerPrefs.SetInt("jäljellä", jäljellä_olevat_yritykset);
+
+
         }
 
 

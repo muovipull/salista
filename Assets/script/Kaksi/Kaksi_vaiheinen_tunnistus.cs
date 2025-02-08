@@ -6,12 +6,24 @@ using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 public class Kaksi_vaiheinen_tunnistus : MonoBehaviour
 {
     public static string tili = "santeri.taavitsainen.koodaaja@gmail.com";
-    private static string secret = "AC3PLI3ZH2AOFP3LRUr4f5";
+    public static string secret = "";
+    public int eka;
     public RawImage qrCodeImage;
+    public TMP_InputField sahkoposti;
+    public TMP_InputField vara_salis;
+    public TextMeshProUGUI tiedot;
+    public GameObject ohje;
+    public GameObject asetukset;
+    public GameObject kaytto;
+    public GameObject sisaiset_asetukset;
+    public static string otettu ="false";
+    public static string vara = "";
+
 
     public static string GenerateSecretKey()
     {
@@ -54,21 +66,107 @@ public class Kaksi_vaiheinen_tunnistus : MonoBehaviour
         return result.ToString();
     }
 
-
-
-
-
-
-
-    void Start()
-
+    public void avaa_sisainen()
     {
-        secret = GenerateSecretKey();
-        string qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + UnityWebRequest.EscapeURL("otpauth://totp/Salista:" + Kaksi_vaiheinen_tunnistus.tili + "?secret=" + Kaksi_vaiheinen_tunnistus.secret + "&issuer=Salista&digits=6");
-        StartCoroutine(LoadQRCode(qrCodeUrl));
-        //Kaksi_vaiheinen_tunnistus.secret = GenerateSecretKey();
+
+        sisaiset_asetukset.SetActive(true);
+        asetukset.SetActive(false);
+
+
+
     }
 
+
+
+
+
+    public void luo_tallennsu_koodi()
+    {
+        eka = PlayerPrefs.GetInt("eka", 0);
+        if (eka == 0)
+        {
+            if (vara_salis.text.ToString() == "")
+            {
+
+                vara = salasananvaihto.salistatlalla;
+
+            }
+            else
+            {
+                vara = vara_salis.text.ToString();
+            }
+
+            PlayerPrefs.SetString("vara", Kaksi_vaiheinen_tunnistus.vara);
+            Kaksi_vaiheinen_tunnistus.secret = GenerateSecretKey();
+            PlayerPrefs.SetString("secret", Kaksi_vaiheinen_tunnistus.secret);
+
+            eka = 1;
+            PlayerPrefs.SetInt("eka", eka);
+        }
+        if (eka == 1)
+        {
+            Kaksi_vaiheinen_tunnistus.secret = PlayerPrefs.GetString("secret", "a");
+        }
+
+        Kaksi_vaiheinen_tunnistus.tili = sahkoposti.text.ToString();
+        tiedot.text = "Nimi on Salista:" + Kaksi_vaiheinen_tunnistus.tili + "Salausavain on " + Kaksi_vaiheinen_tunnistus.secret;
+        string qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + UnityWebRequest.EscapeURL("otpauth://totp/Salista:" + Kaksi_vaiheinen_tunnistus.tili + "?secret=" + Kaksi_vaiheinen_tunnistus.secret + "&issuer=Salista&digits=6");
+        StartCoroutine(LoadQRCode(qrCodeUrl));
+
+    }
+    public void Poistu()
+
+    {
+        if(eka==1)
+        {
+            asetukset.SetActive(true);
+            kaytto.SetActive(false);
+            Kaksi_vaiheinen_tunnistus.otettu = "true";
+            PlayerPrefs.SetString("true", Kaksi_vaiheinen_tunnistus.otettu);
+            print("eka "+ eka.ToString());
+
+        }
+        else
+        {
+            asetukset.SetActive(true);
+            kaytto.SetActive(false);
+
+
+        }
+        
+
+
+    }
+    public void avaa_ohje()
+    {
+        asetukset.SetActive(false);
+        ohje.SetActive(true);
+        sisaiset_asetukset.SetActive(false);
+
+    }
+    public void sulje_ohje()
+    {
+        ohje.SetActive(false);
+        asetukset.SetActive(true);
+        
+
+
+    }
+    public void avaa_kaytto()
+    {
+        kaytto.SetActive(true);
+        ohje.SetActive(false);
+
+
+    }
+    public void valtuutuksen_poisto()
+    {
+        otettu = "false";
+        PlayerPrefs.SetString("true", Kaksi_vaiheinen_tunnistus.otettu);
+        asetukset.SetActive(true);
+        sisaiset_asetukset.SetActive(false);
+
+    }
     IEnumerator LoadQRCode(string url)
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
@@ -78,11 +176,18 @@ public class Kaksi_vaiheinen_tunnistus : MonoBehaviour
         {
             Texture2D qrCodeTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             qrCodeImage.texture = qrCodeTexture;
+            print(" qr-code kuva laitettu");
         }
         else
         {
             Debug.LogError("QR-koodin lataaminen epäonnistui: " + www.error);
         }
+    }
+    private void Start()
+    {
+        Kaksi_vaiheinen_tunnistus.vara = PlayerPrefs.GetString("vara", salasananvaihto.salistatlalla);
+        Kaksi_vaiheinen_tunnistus.secret = PlayerPrefs.GetString("secret", "a");
+        Kaksi_vaiheinen_tunnistus.otettu = PlayerPrefs.GetString("true", "false");
     }
 }
 

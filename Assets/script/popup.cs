@@ -117,14 +117,14 @@ public class popup : MonoBehaviour
     public void resetoi_kaikki()
     {
             
-            //PlayerPrefs.DeleteAll();
+            PlayerPrefs.DeleteAll();
             //Application.Quit();
             //UnityEditor.EditorApplication.ExitPlaymode();
 
     }
     // 4 nappi
     //asetukset
-
+   
     [Header("sivun muokkaus")]
     public GameObject sivu_1;
     public GameObject sivu_2;
@@ -178,6 +178,7 @@ public class popup : MonoBehaviour
 
 
     }
+    
     
 
 

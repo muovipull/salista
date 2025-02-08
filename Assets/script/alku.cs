@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 public class alku : MonoBehaviour
 {
     [Header("input")]
-    public InputField uusi1;
-    public InputField uusi2;
+    public TMP_InputField uusi1;
+    public TMP_InputField uusi2;
     [Header("gameobject")]
     public GameObject ero;
     public GameObject tyhja;
@@ -109,24 +111,5 @@ public class alku : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    #if UNITY_EDITOR
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
 
-        {
-            PlayerPrefs.DeleteAll();
-            print(alku.onko);
-            print(salasananvaihto.salistatlalla);
-            print("tyhjä");
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            print(aloitus_jos_aloitusvalmis.jäljellä_olevat_yritykset);
-            aloitus_jos_aloitusvalmis.jäljellä_olevat_yritykset += 5;
-
-        }
-    }
-    #endif
 }
