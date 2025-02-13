@@ -15,7 +15,7 @@ public class päivitys : MonoBehaviour
     public int sivu;
     public GameObject seura_napppi;
     public GameObject edelli_nappi;
-    public GameObject sivu_1;
+
     public TextMeshProUGUI sivu_leipa;
     public TextMeshProUGUI sivu_tekst;
     public GameObject haly;
