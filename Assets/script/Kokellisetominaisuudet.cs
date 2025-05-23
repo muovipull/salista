@@ -1,85 +1,140 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System;
 
 public class Kokellisetominaisuudet : MonoBehaviour
 {
-    public GameObject varmistus_resetointi;
-    public GameObject varmistus_koe_käyttö;
-    public GameObject koe_poisto;
-    public GameObject resetoi_nappi;
-    public GameObject teema;
-    public int koe = 0;
-    // Start is called before the first frame update
-    void Start()
+    public GameObject lisäys;
+    public GameObject valikko;
+    public TextMeshProUGUI ilmoitus;
+    public TMP_InputField input;
+    public string koodi;
+    public GameObject teema_nappu;
+    public string teema_otettu;
+    public string resetointi_otettu;
+    public GameObject resetointi_nappu;
+
+    private void Start()
     {
-        koe=PlayerPrefs.GetInt("koe", 0);
-        if(koe == 1 )
+        teema_otettu = PlayerPrefs.GetString("teema_tieto", "false").ToString();
+        resetointi_otettu = PlayerPrefs.GetString("resetointi_otettu", "false").ToString();
+
+        if ( teema_otettu == "true")
         {
-            resetoi_nappi.SetActive(true);
-            teema.SetActive(true);
+            teema_nappu.SetActive(true);
 
         }
-    }
-    public void resetoi_ennen()
-    {
-        varmistus_resetointi.SetActive(true);
+        if (teema_otettu == "false")
+        {
+            teema_nappu.SetActive(false);
+
+        }
+        if (resetointi_otettu == "true")
+        {
+            resetointi_nappu.SetActive(true);
+
+        }
+        if (resetointi_otettu == "false")
+        {
+            resetointi_nappu.SetActive(false);
+
+        }
+
 
     }
-    public void en()
+    public void avaa_lisäys()
     {
-        varmistus_resetointi.SetActive(false);
-        varmistus_koe_käyttö.SetActive(false);
-        teema.SetActive(true);
-        koe_poisto.SetActive(false);
-    
+        lisäys.SetActive(false);
+        valikko.SetActive(true);
+        ilmoitus.text = "Syötä koodi";
+
+    }
+    public void tarkista()
+    {
+        koodi = input.text.ToString();
+        if(koodi == "1111")
+        {
+            if (teema_otettu == "true")
+            {
+
+                ilmoitus.text = "POISTETTU TEEMAN VAIHTO";
+                teema_otettu = "false";
+                PlayerPrefs.SetString("teema_tieto", teema_otettu);
+
+                resetointi_nappu.SetActive(false);
+                return;
+            }
+            if (teema_otettu == "false")
+            {
+                ilmoitus.text = "LISÄTTY TEEMAN VAIHTO";
+                teema_otettu = "true";
+                PlayerPrefs.SetString("teema_tieto", teema_otettu);
+                resetointi_nappu.SetActive(true);
+                return;
+
+            }
+            
+            
+
+
+
+
+        }
+        if (koodi == "2222")
+        {
+
+            if (resetointi_otettu == "true")
+            {
+
+                ilmoitus.text = "POISTETTU KAIKEN RESETOINTI";
+                resetointi_otettu = "false";
+                PlayerPrefs.SetString("resetointi_otettu", resetointi_otettu);
+
+                teema_nappu.SetActive(false);
+                return;
+            }
+            if (resetointi_otettu == "false")
+            {
+                ilmoitus.text = "LISÄTTY KAIKEN RESETOINTI";
+                resetointi_otettu = "true";
+                PlayerPrefs.SetString("resetointi_otettu", resetointi_otettu);
+                teema_nappu.SetActive(true);
+                return;
+
+            }
+
+
+
+        }
+        else
+        {
+            ilmoitus.text = "ANTAMASI KOODI EI OLE OLEMASSA";
+
+
+
+
+        }
+
+
+
+    }
+    public void poistu()
+    {
+
+        valikko.SetActive(false );
+        lisäys.SetActive(true );
+
+
     }
     public void resetoi()
     {
         PlayerPrefs.DeleteAll();
         Application.Quit();
 
-
-
-    }
-    public void varmistus_koe()
-    {
-        varmistus_koe_käyttö.gameObject.SetActive(true);
-
-
-
-    }
-    public void otakäyttöön()
-    {
-        koe = PlayerPrefs.GetInt("koe", 0);
-        if (koe == 0)
-        {
-            resetoi_nappi.gameObject.SetActive(true);
-            teema.gameObject.SetActive(true);
-            koe = 1;
-            PlayerPrefs.SetInt("koe", koe);
-            varmistus_koe_käyttö.gameObject.SetActive(false);
-        }
-        else
-        {
-            koe_poisto.SetActive(true);
-        }
-    }
-    public void poista_koe()
-    {
-
-
-        resetoi_nappi.gameObject.SetActive(false);
-        teema.gameObject.SetActive(false);
-        koe = 0;
-        PlayerPrefs.SetInt("koe", koe);
-        varmistus_koe_käyttö.gameObject.SetActive(false);
-        koe_poisto.SetActive(false) ;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
+
     }
+   
 }

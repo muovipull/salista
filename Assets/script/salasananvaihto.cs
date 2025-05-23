@@ -23,11 +23,14 @@ public class salasananvaihto : MonoBehaviour
     public GameObject vali1;
     public GameObject vali2;
     public GameObject kaksi_gameobject;
-   
+
+    public GameObject varapin_sivu;
+    public TMP_InputField varapin_uusi;
+    public TextMeshProUGUI varapin_vaihto_ilmoitus;
     
-        
 
     public static string salistatlalla;
+    public static string varasalistalla;
 
     public void takaisin_paa()
     {
@@ -151,13 +154,35 @@ public class salasananvaihto : MonoBehaviour
 
 
     }
+    public void avaa_varapinvaihto()
+    {
+        Asetusvalikko.SetActive(false);
+        varapin_sivu.SetActive(true);
+        varapin_vaihto_ilmoitus.text = "";
 
+    }
+    public void aseta_varapin()
+    {
+        salasananvaihto.varasalistalla = varapin_uusi.text.ToString();
+        varapin_vaihto_ilmoitus.text = "vara pinkoodi vaihdettu";
+        PlayerPrefs.SetString("varasala", salasananvaihto.varasalistalla);
+    }
+    public void poistu_varapinvaihto()
+    {
+
+        Asetusvalikko.SetActive(true);
+        varapin_sivu.SetActive(false);
+        varapin_vaihto_ilmoitus.text = "";
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         salasananvaihto.salistatlalla = PlayerPrefs.GetString("Tallennus1", "1234");
         print(salasananvaihto.salistatlalla);
+        salasananvaihto.varasalistalla = PlayerPrefs.GetString("varasala", "");
+        print(salasananvaihto.varasalistalla);
     }
 
     // Update is called once per frame

@@ -1,100 +1,81 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEngine;    
-using UnityEngine.UI;
+using UnityEngine;
 
 public class Luo_random : MonoBehaviour
 {
-    public string salasana = "";
     public TMP_InputField pituus;
-    public int pituusint =10;
+    public TMP_Text näyttösalasana;
     public GameObject satuinnais;
     public GameObject paaruutu;
-    public TMP_Text näyttösalasana;
-    public int minCharAmount = 10;
-    public int maxCharAmount = 30;
-    public string salasanarandom = "";
-    public char[] merkit = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'z', '1', '2', '3', '4', '5', '6', '7', '8' ,'9', '0', '!', '?'};
+
+    private string salasanarandom = "";
+    private char[] merkit = {
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l','m', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    
+
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+
+
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0','!'
+    };
 
     public void peruuta()
     {
-        print("peruutettu");
+        print("Peruutettu");
         satuinnais.SetActive(false);
         paaruutu.SetActive(true);
-
-
     }
+
     public void poistuttu_alkunäytösta()
     {
-
         satuinnais.SetActive(true);
         paaruutu.SetActive(false);
         näyttösalasana.text = "";
         pituus.Select();
         pituus.text = "";
-
     }
+
     public void kopioi()
     {
-        TextEditor textEditor = new TextEditor();
-        textEditor.text = näyttösalasana.text;
+        TextEditor textEditor = new TextEditor
+        {
+            text = näyttösalasana.text
+        };
         textEditor.SelectAll();
         textEditor.Copy();
-        print("kopioitu");
-
-
+        print("Kopioitu");
     }
-    string luo_satunnainen()
+
+    string luo_satunnainen(int maara)
     {
         salasanarandom = "";
-        int maara = UnityEngine.Random.Range(minCharAmount, maxCharAmount + 1);
-
         for (int i = 0; i < maara; i++)
         {
             salasanarandom += merkit[UnityEngine.Random.Range(0, merkit.Length)];
         }
-
         return salasanarandom;
     }
+
     public void luo()
     {
-        try
-        {
+        int pituusint;
 
-            pituusint = int.Parse(pituus.text);
-            if (pituusint < 51)
+        if (int.TryParse(pituus.text, out pituusint))
+        {
+            if (pituusint < 1 || pituusint > 50)
             {
-                maxCharAmount = pituusint;
-                minCharAmount = pituusint;
-                salasanarandom = luo_satunnainen();
-                Debug.Log("Satunnainen merkkijono: " + salasanarandom);
-                näyttösalasana.text = salasanarandom;
-                print(merkit.Length);
-                
+                print("Syötä pituus väliltä 1–50");
+                return;
             }
+
+            salasanarandom = luo_satunnainen(pituusint);
+            Debug.Log("Satunnainen salasana: " + salasanarandom);
+            näyttösalasana.text = salasanarandom;
         }
-        catch
+        else
         {
-            print("ei onnistunut");
-            print(pituus.text);
-
-
-
-
+            print("Syötä kelvollinen numero.");
         }
-
-
-
-
     }
-
-      
-    
 }
-    
-    
-
-
-

@@ -7,11 +7,16 @@ public class Kirajudu_sisaaan : MonoBehaviour
 {
     [Header("Sisalla")]
     public GameObject paa_nautt;
+    [Header("vara pin")]
+
+
+
 
     [Header("tallennus")]
     public GameObject tallennus;
     public TMP_InputField uusi1;
     public TMP_InputField uusi2;
+    public TMP_InputField vara_uusi3;
     public TextMeshProUGUI valitus_tallennus;
 
     [Header("Kirjaudu")]
@@ -30,7 +35,7 @@ public class Kirajudu_sisaaan : MonoBehaviour
         if(tallennettu == 0)
         {
             tallennus.SetActive(true);
-
+            valitus_tallennus.text = "Pinkoodi mit‰ tulet k‰ytt‰m‰‰n sovellukseen kirjautumiseen";
 
         }
         if(tallennettu == 1)
@@ -47,11 +52,13 @@ public class Kirajudu_sisaaan : MonoBehaviour
     }
     public void tallenna()
     {
-        if(uusi1.text.ToString()== uusi2.text.ToString() && uusi1.text.ToString() != "" && uusi2.text.ToString() != "")
+        if(uusi1.text.ToString() == uusi2.text.ToString() && uusi1.text.ToString() != "" && uusi2.text.ToString() != "" && vara_uusi3.text.ToString() != "")
         {
             tallennettu = 1;
             PlayerPrefs.SetInt("tallennettu", tallennettu);
             salasananvaihto.salistatlalla = uusi1.text;
+            salasananvaihto.varasalistalla = vara_uusi3.text;
+            PlayerPrefs.SetString("varasala", salasananvaihto.varasalistalla);
             PlayerPrefs.SetString("Tallennus1", salasananvaihto.salistatlalla);
             paa_nautt.SetActive(true);
             tallennus.SetActive(false);
@@ -65,11 +72,12 @@ public class Kirajudu_sisaaan : MonoBehaviour
             valitus_tallennus.text = "salasanojen pit‰‰ olla yhten‰iset";
 
         }
-        if (uusi1.text.ToString()=="" || uusi2.text.ToString()=="")
+        if (uusi1.text.ToString()=="" || uusi2.text.ToString()=="" || vara_uusi3.text.ToString() == "")
         {
 
             uusi1.text = "";
             uusi2.text = "";
+            vara_uusi3.text = "";
             valitus_tallennus.text = "kaikki kohdat pit‰‰ t‰ytt‰‰";
 
 
@@ -80,7 +88,7 @@ public class Kirajudu_sisaaan : MonoBehaviour
     }
     public void kirjaudu()
     {
-        if (salasana.text.ToString() != salasananvaihto.salistatlalla)
+        if (salasana.text.ToString() != salasananvaihto.salistatlalla && salasana.text.ToString() != salasananvaihto.varasalistalla)
         {
             salasana.text = "";
             valitus_kirja.text = "Salasana ei ole oikea";
@@ -88,12 +96,12 @@ public class Kirajudu_sisaaan : MonoBehaviour
 
 
         }
-        if(salasana.text.ToString()== salasananvaihto.salistatlalla && Kaksi_vaiheinen_tunnistus.otettu == "false")
+        if(salasana.text.ToString() == salasananvaihto.salistatlalla || salasana.text.ToString() == salasananvaihto.varasalistalla && Kaksi_vaiheinen_tunnistus.otettu == "false")
         {
             paa_nautt.SetActive (true);
             kirajaudu_sivu.SetActive(false);
         }
-        if (salasana.text.ToString() == salasananvaihto.salistatlalla && Kaksi_vaiheinen_tunnistus.otettu == "true")
+        if (salasana.text.ToString() == salasananvaihto.salistatlalla || salasana.text.ToString() == salasananvaihto.varasalistalla && Kaksi_vaiheinen_tunnistus.otettu == "true")
         {
             kaksi_vaihe_kirja.SetActive(true);
             kirajaudu_sivu.SetActive(false);
