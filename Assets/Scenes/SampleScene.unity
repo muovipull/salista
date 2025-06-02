@@ -11715,8 +11715,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1531655725}
-        m_TargetAssemblyTypeName: Luo_random, Assembly-CSharp
-        m_MethodName: luo
+        m_TargetAssemblyTypeName: satunnainen, Assembly-CSharp
+        m_MethodName: GeneratePasswordFromInput
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12556,15 +12556,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -15782,6 +15782,7 @@ GameObject:
   - component: {fileID: 786270587}
   - component: {fileID: 786270588}
   - component: {fileID: 786270589}
+  - component: {fileID: 786270590}
   m_Layer: 0
   m_Name: koodi
   m_TagString: Untagged
@@ -16061,7 +16062,7 @@ MonoBehaviour:
       muokkauksia p\xE4ivitys historiaan\nv 2.7.6\n- Kokeelliset ominaisuudet ovat
       takaisin k\xE4yt\xF6ss\xE4.\n- P\xE4\xE4n\xE4ytt\xF6\xF6n kosmeettisia p\xE4ivityksi\xE4\nv
       2.7.7\n- Varapinkoodi lis\xE4tty ja sen muuttaminen\nv 2.7.8 \n- P\xE4ivitys
-      satunnaisen salasanan luojaan"
+      satunnaisen salasanan luojaan\n- Bugien korjausta"
   - otsikko: Tulossa
     tesksti: "Tulossa\n\nversiossa 2.8\n2.8.1 - vara pinkoodi\n2.8.2- tumma vaalea
       teema kaikkeen\nversiossa 2.9\n- kaksi vaiheseen tunnistautuminen useita tapoja\nversiossa
@@ -16078,6 +16079,22 @@ MonoBehaviour:
       salasanoijen kopiointi\n- tallennettujen s\xE4hk\xF6postien kopiointi\n- p\xE4ivitys
       logi\nV 2.5.2 muutokset\n-p\xE4ivitys login saa auki asetuksista\nV 2.5.3\n-kokeelliset
       ominaisuudet k\xE4ytt\xF6\xF6n\n"
+--- !u!114 &786270590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786270577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6efcd56010cf6164f896e627f73bbbfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pituus: {fileID: 0}
+  "n\xE4ytt\xF6salasana": {fileID: 0}
+  satuinnais: {fileID: 0}
+  paaruutu: {fileID: 0}
 --- !u!1 &786810886
 GameObject:
   m_ObjectHideFlags: 0
@@ -22584,7 +22601,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1531655725}
-        m_TargetAssemblyTypeName: Luo_random, Assembly-CSharp
+        m_TargetAssemblyTypeName: satunnainen, Assembly-CSharp
         m_MethodName: kopioi
         m_Mode: 1
         m_Arguments:
@@ -28687,7 +28704,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1531655725}
-        m_TargetAssemblyTypeName: Luo_random, Assembly-CSharp
+        m_TargetAssemblyTypeName: satunnainen, Assembly-CSharp
         m_MethodName: peruuta
         m_Mode: 1
         m_Arguments:
@@ -29064,7 +29081,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1531655720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c71ee88462099e4ba366825e6b8a025, type: 3}
+  m_Script: {fileID: 11500000, guid: 6efcd56010cf6164f896e627f73bbbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pituus: {fileID: 804376477}
@@ -35203,7 +35220,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1531655725}
-        m_TargetAssemblyTypeName: Luo_random, Assembly-CSharp
+        m_TargetAssemblyTypeName: satunnainen, Assembly-CSharp
         m_MethodName: "poistuttu_alkun\xE4yt\xF6sta"
         m_Mode: 1
         m_Arguments:

@@ -96,12 +96,12 @@ public class Kirajudu_sisaaan : MonoBehaviour
 
 
         }
-        if(salasana.text.ToString() == salasananvaihto.salistatlalla || salasana.text.ToString() == salasananvaihto.varasalistalla && Kaksi_vaiheinen_tunnistus.otettu == "false")
+        if(((salasana.text.ToString() == salasananvaihto.salistatlalla) || (salasana.text.ToString() == salasananvaihto.varasalistalla)) && Kaksi_vaiheinen_tunnistus.otettu == "false")
         {
             paa_nautt.SetActive (true);
             kirajaudu_sivu.SetActive(false);
         }
-        if (salasana.text.ToString() == salasananvaihto.salistatlalla || salasana.text.ToString() == salasananvaihto.varasalistalla && Kaksi_vaiheinen_tunnistus.otettu == "true")
+        if (((salasana.text.ToString() == salasananvaihto.salistatlalla) || (salasana.text.ToString() == salasananvaihto.varasalistalla)) && Kaksi_vaiheinen_tunnistus.otettu == "true")
         {
             kaksi_vaihe_kirja.SetActive(true);
             kirajaudu_sivu.SetActive(false);
