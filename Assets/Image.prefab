@@ -1749,9 +1749,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 578933093883197902}
-        m_TargetAssemblyTypeName: kopioi, Assembly-CSharp
-        m_MethodName: kopi
+      - m_Target: {fileID: 198401235536432002}
+        m_TargetAssemblyTypeName: CopyRandom, Assembly-CSharp
+        m_MethodName: CopyText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3678,7 +3678,7 @@ GameObject:
   - component: {fileID: 2174191731656328992}
   - component: {fileID: 7803694188730714392}
   - component: {fileID: 3169872789373053529}
-  - component: {fileID: 6293643654884170676}
+  - component: {fileID: 6614763093956681887}
   m_Layer: 5
   m_Name: Kopioi
   m_TagString: Untagged
@@ -3788,9 +3788,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6293643654884170676}
-        m_TargetAssemblyTypeName: kopioi, Assembly-CSharp
-        m_MethodName: kopi
+      - m_Target: {fileID: 6614763093956681887}
+        m_TargetAssemblyTypeName: CopyRandom, Assembly-CSharp
+        m_MethodName: CopyText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3800,7 +3800,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6293643654884170676
+--- !u!114 &6614763093956681887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3809,10 +3809,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6510693905767125217}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04a5e1d949f88784e83b954fde633a3d, type: 3}
+  m_Script: {fileID: 11500000, guid: ffeea46caf22c574c8282f9617ff64ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kopio: {fileID: 5968150546989516796}
+  textToCopy: {fileID: 5968150546989516796}
 --- !u!1 &6781907289940783315
 GameObject:
   m_ObjectHideFlags: 0
@@ -5452,7 +5452,7 @@ GameObject:
   - component: {fileID: 333611182518805388}
   - component: {fileID: 8439595913325066020}
   - component: {fileID: 2374706410146450612}
-  - component: {fileID: 578933093883197902}
+  - component: {fileID: 198401235536432002}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -5520,7 +5520,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &578933093883197902
+--- !u!114 &198401235536432002
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5529,10 +5529,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8370880418185870798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04a5e1d949f88784e83b954fde633a3d, type: 3}
+  m_Script: {fileID: 11500000, guid: ffeea46caf22c574c8282f9617ff64ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kopio: {fileID: 4338464207502239303}
+  textToCopy: {fileID: 4338464207502239303}
 --- !u!1 &8745036690566878056
 GameObject:
   m_ObjectHideFlags: 0

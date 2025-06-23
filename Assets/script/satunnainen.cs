@@ -22,6 +22,8 @@ public class satunnainen : MonoBehaviour
     private const string UppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private const string NumberChars = "0123456789";
     private const string SpecialChars = "!@?#";
+
+
     public void kopioi()
     {
         TextEditor textEditor = new TextEditor

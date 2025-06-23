@@ -6449,7 +6449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &291057374
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15923,27 +15923,31 @@ MonoBehaviour:
   - otsikko: Pinkoodi
     tesksti: "mik\xE4 on Pinkoodi?\r\n-pinkoodi on koodi jolla kirjaudut sovellukseen
       sis\xE4\xE4n sinut pyydet\xE4\xE4n lis\xE4\xE4m\xE4\xE4n sellainen kun avaat
-      sovelluksen ensimm\xE4isen kerran.\r\nMiten vaihdan Pinkoodin?\n- 1. Mene asetuksiin
-      2. Paina vaihda salasana \n3. sy\xF6t\xE4 vanha pinkoodi ja paina seuraava
-      \n4. Kirjoita uusi pinkoodi ja paina seuraava niin pinkoodi on vaihdettu\n\n"
+      sovelluksen ensimm\xE4isen kerran.\n\r\nMiten vaihdan Pinkoodin?\n1. Mene asetuksiin
+      2. Paina vaihda salasana \n3. sy\xF6t\xE4 vanha pinkoodi tai varapinkoodi ja
+      paina seuraava \n4. Kirjoita uusi pinkoodi ja paina seuraava niin pinkoodi
+      on vaihdettu\n\nMiten vaihdan varapinkoodin\n1. Mene asetuksiin 2. Paina vaihda
+      varapinkoodi\n3. Sy\xF6t\xE4 uusi varapinkoodi 4. Paina aseta ja sitten poistu\n"
   - otsikko: Tallennus
     tesksti: "miten tallennan salasanan / s\xE4hk\xF6postin?\r\n1. tallenna salasana
-      painamalla uusi salasana\r\n2. sy\xF6t\xE4 tiedot kohtiin\r\n3. paina tallenna\n\nmiten
-      n\xE4\xE4n tallentamani salasanan?\r\n1. n\xE4et salalanan painamalla keltaista
+      /s\xE4hk\xF6posti painamalla uusi salasana\r\n2. sy\xF6t\xE4 haluamasi tiedot
+      kohtiin\r\n3. paina tallenna\n\nmiten n\xE4en tallentamani salasanan?\r\n1.
+      n\xE4et salalanan painamalla painiketta jossa lukee n\xE4yt\xE4\r\n2. Sy\xF6t\xE4
+      Pinkoodisi kentt\xE4\xE4n.\r\n3. paina seuraava\r\n4. n\xE4\xE4t salasanasi
+      voit kopioida sen painamalla kopioi.\r\n5. paina sulje piilottaaksesi salasanan\r\n\r\nmiten
+      n\xE4\xE4n tallentamani s\xE4hk\xF6postin?\r\n1. n\xE4et salalanan painamalla
       painiketta jossa lukee n\xE4yt\xE4\r\n2. Sy\xF6t\xE4 Pinkoodisi kentt\xE4\xE4n.\r\n3
-      paina seuraava\r\n4. n\xE4\xE4t salasanasi voit kopioida sen painamalla kopioi.\r\n5.
-      paina sulje piilottaaksesi salasanan\r\n\r\nmiten n\xE4\xE4n tallentamani s\xE4hk\xF6postin?\r\n1.
-      n\xE4et salalanan painamalla keltaista painiketta jossa lukee n\xE4yt\xE4\r\n2.
-      Sy\xF6t\xE4 Pinkoodisi kentt\xE4\xE4n.\r\n3 paina seuraava\r\n4. n\xE4\xE4t
-      s\xE4hk\xF6postisii voit kopioida sen painamalla kopioi.\r\n5. paina sulje
-      piilottaaksesi s\xE4hk\xF6posti osoitteen."
+      paina seuraava\r\n4. n\xE4\xE4t s\xE4hk\xF6postisii voit kopioida sen painamalla
+      kopioi.\r\n5. paina sulje piilottaaksesi s\xE4hk\xF6posti osoitteen."
   - otsikko: Kosmetiikkka
-    tesksti: 'miten vaihdan teeman?
+    tesksti: 'Miten vaihdan teeman?
 
       1. Mene asetuksiin
 
-      2. paina vaihda
-      teema'
+      2. mene kohtaan
+      kosmetiikka
+
+      3. paina vaihda teema'
 --- !u!114 &786270585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16054,7 +16058,11 @@ MonoBehaviour:
   sivu_tekst: {fileID: 180599921}
   haly: {fileID: 1375405149}
   sivut:
-  - otsikko: versiot 2.7.0-2.7.6
+  - otsikko: versio 2.7.9
+    tesksti: "v 2.7.9\nKorjaukset\n- tallennettujen salasanoijen kopiointi\n- tallennettujen
+      s\xE4hk\xF6postien kopiointi\n- satunaisen salasanan kopiointi\n- Bugien korjauksia\n-
+      Ohjeiden p\xE4ivitt\xE4minen"
+  - otsikko: versiot 2.7.0-2.7.8
     tesksti: "v 2.7.0\n- Kaksivaiheinen tunnistautuminen\nv 2.7.1\n- P\xE4ivitys
       historia p\xE4ivitys\nv 2.7.2\n-bugien korjausta\nv 2.7.2\n-  muutoksia kaksivaiheiseen
       tunnisatutumiseen\nv 2.7.3\n- Bugien korjausta\nv 2.7.4\n- Kosmettisia muokkauksia
@@ -22600,9 +22608,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1531655725}
-        m_TargetAssemblyTypeName: satunnainen, Assembly-CSharp
-        m_MethodName: kopioi
+      - m_Target: {fileID: 1531655726}
+        m_TargetAssemblyTypeName: CopyRandom, Assembly-CSharp
+        m_MethodName: CopyText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27003,7 +27011,6 @@ RectTransform:
   - {fileID: 1772805802}
   - {fileID: 396850723}
   - {fileID: 1482021443}
-  - {fileID: 2011534947}
   - {fileID: 157257506}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28976,6 +28983,7 @@ GameObject:
   - component: {fileID: 1531655723}
   - component: {fileID: 1531655722}
   - component: {fileID: 1531655725}
+  - component: {fileID: 1531655726}
   m_Layer: 5
   m_Name: sannaisen luonti
   m_TagString: Untagged
@@ -29088,6 +29096,19 @@ MonoBehaviour:
   "n\xE4ytt\xF6salasana": {fileID: 690354302}
   satuinnais: {fileID: 1531655720}
   paaruutu: {fileID: 60682939}
+--- !u!114 &1531655726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531655720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffeea46caf22c574c8282f9617ff64ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToCopy: {fileID: 690354302}
 --- !u!1 &1560308417
 GameObject:
   m_ObjectHideFlags: 0
@@ -32856,7 +32877,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 289}
+  m_AnchoredPosition: {x: 0, y: 66}
   m_SizeDelta: {x: 900, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1762587184
@@ -36559,107 +36580,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993453080}
   m_CullTransparentMesh: 1
---- !u!1 &2011534946
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2011534947}
-  - component: {fileID: 2011534950}
-  - component: {fileID: 2011534949}
-  - component: {fileID: 2011534948}
-  m_Layer: 5
-  m_Name: Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2011534947
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2011534946}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1455873289}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 540, y: 960}
-  m_SizeDelta: {x: 1080, y: 1920}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2011534948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2011534946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &2011534949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2011534946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &2011534950
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2011534946}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &2014141981
 GameObject:
   m_ObjectHideFlags: 0
@@ -39502,7 +39422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 66}
+  m_AnchoredPosition: {x: 0, y: 289}
   m_SizeDelta: {x: 900, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2145556513
