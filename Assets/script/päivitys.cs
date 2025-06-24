@@ -30,7 +30,7 @@ public class päivitys : MonoBehaviour
     
     public List<sivudata> sivut;
         
-
+    
 
 
 
@@ -39,9 +39,9 @@ public class päivitys : MonoBehaviour
     {
 
 
-        
 
-        Application.targetFrameRate = 30;
+
+        //Application.targetFrameRate = 30;
         
 
 
@@ -67,14 +67,31 @@ public class päivitys : MonoBehaviour
 
 
         }
-        
 
-        
+
+
 
     }
     
     public void avaa()
     {
+        sivut.Add(new sivudata
+        {
+            otsikko = Päälataus.LadattuOtsikko,
+            tesksti = Päälataus.LadattuTeksti
+        });
+
+
+        sivudata viimeinenSivu = sivut[sivut.Count - 1];
+        Debug.Log($"Siirrettävä sivu: '{viimeinenSivu.otsikko}'");
+
+        // 2. Poista viimeinen objekti listasta
+        sivut.RemoveAt(sivut.Count - 1);
+
+        // 3. Lisää aiemmin poistettu objekti listan alkuun (indeksi 0)
+        sivut.Insert(0, viimeinenSivu);
+
+
 
         päivitykset.SetActive(true);
         sivu = 0;
@@ -109,7 +126,7 @@ public class päivitys : MonoBehaviour
     {
         sivu_tekst.text = "sivu " + (sivu+1) + " " + sivut[sivu].otsikko;
         sivu_leipa.text = sivut[sivu].tesksti;
-        
+
         
         
         seura_napppi.SetActive(sivu<sivut.Count-1);
