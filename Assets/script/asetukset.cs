@@ -11,6 +11,7 @@ public class asetukset : MonoBehaviour
     public GameObject Kosmetiikka; //sivu 2
     public GameObject kirajutuminen; //sivu 1
     public GameObject muut;   //sivu 3
+    public GameObject Käyttäjä; //sivu 4
 
     public GameObject asetus_sivu;
     public GameObject paa_nautto;
@@ -25,7 +26,7 @@ public class asetukset : MonoBehaviour
             kirajutuminen.SetActive(true);
             muut.SetActive(false);
             Kosmetiikka.SetActive(false);
-
+            Käyttäjä.SetActive(false);
 
 
         }
@@ -34,7 +35,7 @@ public class asetukset : MonoBehaviour
             Kosmetiikka.SetActive(true);
             muut.SetActive(false);
             kirajutuminen.SetActive(false);
-
+            Käyttäjä.SetActive(false);
 
 
 
@@ -44,9 +45,16 @@ public class asetukset : MonoBehaviour
             muut.SetActive(true);
             Kosmetiikka.SetActive(false);
             kirajutuminen.SetActive(false);
-
+            Käyttäjä.SetActive(false);
         }
 
+        if(sivu == 4)
+        {
+            Käyttäjä.SetActive(true);
+            Kosmetiikka.SetActive(false);
+            kirajutuminen.SetActive(false);
+            muut.SetActive(false);
+        }
 
 
 
@@ -89,6 +97,11 @@ public class asetukset : MonoBehaviour
         paivita_Sivu();
 
 
+    }
+    public void kayttaja()
+    {
+        sivu=4;
+        paivita_Sivu();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

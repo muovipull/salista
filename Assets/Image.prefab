@@ -4054,15 +4054,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100b9f850c3b25f4a94b9d8197550a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nimi1: {fileID: 6781907291668909683}
-  numero1: {fileID: 4338464207502239303}
-  lisatieto1: {fileID: 6781907291124619284}
-  maara1: {fileID: 5968150546989516796}
-  verkkosivu1: {fileID: 718380295853845230}
+  nimiTeksti: {fileID: 6781907291668909683}
+  numeroTeksti: {fileID: 4338464207502239303}
+  lisatietoTeksti: {fileID: 6781907291124619284}
+  maaraTeksti: {fileID: 5968150546989516796}
+  verkkosivuTeksti: {fileID: 718380295853845230}
+  itemId: 0
   poista_hyvaksy: {fileID: 2362176300971284386}
-  pinkoodi: {fileID: 5278637575724475206}
   salis: {fileID: 5870296429787612039}
-  peruuta: {fileID: 342070652383632343}
 --- !u!1 &6781907290217832002
 GameObject:
   m_ObjectHideFlags: 0

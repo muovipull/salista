@@ -1,6 +1,7 @@
 Library: C:\Users\sante\salista\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
 --platform=Android
---backend=burst-llvm-18
+--minimum-os-version=
+--backend=burst-llvm-19
 --target=ARMV7A_NEON32
 --global-safety-checks-setting=Off
 --meta-data-generation=False
@@ -9,7 +10,7 @@ Library: C:\Users\sante\salista\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_b
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\sante\salista\Temp\Burst
---key-folder=C:/Program Files/Unity/Hub/Editor/6000.1.8f1/Editor/Data/PlaybackEngines/AndroidPlayer
+--key-folder=C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\sante\salista\Library\Burst
 --output=C:\Users\sante\salista\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
