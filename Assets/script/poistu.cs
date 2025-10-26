@@ -49,8 +49,13 @@ public class poistu : MonoBehaviour
 
     public static poistu Instance;
 
+    [Header("debug")]
+    public GameObject debug_sivu;
+    public TMP_InputField debug_input;
+    public TextMeshProUGUI debug_text;
     // HUOM: Tarkista IP-osoite ja portti ennen käyttöä!
-    private readonly string baseUrl = "http://192.168.101.113:5001";
+    private readonly string baseUrl = "https://fa6b3b1bda97.ngrok-free.app"; // julkaisu palvelin
+    //private readonly string baseUrl = "http://192.168.101.107:5001"; //testi palvelin
 
     // --- Käyttäjän ID:n ja avaimen hallinta ---
 
@@ -71,7 +76,7 @@ public class poistu : MonoBehaviour
     public void avaa_id_asetus()
     {
         aseta_id_paneli.SetActive(true);
-        aseta_id_input.text = currentUserId;
+        aseta_id_input.text = "";
         one_time_key_input.text = ""; // Tyhjennetään avainkenttä aina
         varoitus.text = "";
         generated_key_text.text = "Avainta ei pyydetty";
@@ -91,6 +96,33 @@ public class poistu : MonoBehaviour
     /// Yrittää asettaa uuden ID:n ja ladata datan tilapäisellä siirtoavaimella.
     /// Kutsutaan uudella laitteella, johon tiedot halutaan siirtää.
     /// </summary>
+    /// 
+    public void avaa_debug_sivu()
+    {
+        debug_sivu.SetActive(true);
+        
+        debug_text.text = "Nykyinen käyttäjän ID: " + currentUserId;
+
+        debug_input.text = "";
+    }
+    public void aseta_debug_id()
+    {
+
+        currentUserId = debug_input.text.Trim();
+
+        PlayerPrefs.SetString("CurrentUserId", currentUserId);
+        PlayerPrefs.Save();
+
+        StartCoroutine(GetItemsForRegularLoad(currentUserId));
+        debug_text.text = "Uusi käyttäjän ID asetettu: " + currentUserId;
+
+    }
+    public void sulje_debug_sivu()
+    {
+        debug_sivu.SetActive(false);
+    }
+
+
     public void aseta_id()
     {
         string newId = aseta_id_input.text.Trim();
@@ -113,7 +145,7 @@ public class poistu : MonoBehaviour
             PlayerPrefs.Save();
 
             // Yritä hakea tiedot avaimella
-            StartCoroutine(GetItems(currentUserId, oneTimeKey));
+            StartCoroutine(GetItemsWithTransferKey(currentUserId, oneTimeKey));
         }
         else if (!string.IsNullOrEmpty(oneTimeKey) && oneTimeKey.Length != 8)
         {
@@ -122,7 +154,7 @@ public class poistu : MonoBehaviour
         }
         else
         {
-            // Jos avainta ei annettu, aseta vain ID ja aloita uusi istunto (oletetaan, että vanhalla ID:llä ei ole dataa tai avainta ei haluta käyttää)
+            // Jos avainta ei annettu, aseta vain ID ja lataa olemassa oleva data (jos löytyy)
             StartCoroutine(CheckUserIdExists(newId, (exists) =>
             {
                 currentUserId = newId;
@@ -131,17 +163,19 @@ public class poistu : MonoBehaviour
 
                 if (exists)
                 {
-                    // Tästä kohtaa pitäisi varoittaa käyttäjää, että ID on olemassa, mutta ilman avainta dataa ei voi ladata.
-                    varoitus.text = "VAROITUS: ID on olemassa, mutta avainta ei annettu. Aloitetaan tyhjänä.";
+                    // Ladataan olemassa oleva data uudella/asetetulla ID:llä ilman siirtoavainta
+                    varoitus.text = "ID asetettu. Ladataan olemassa oleva data...";
+                    StartCoroutine(GetItemsForRegularLoad(currentUserId));
                 }
                 else
                 {
-                    varoitus.text = "Uusi ID asetettu onnistuneesti. Sovellus latautuu uudelleen.";
+                    varoitus.text = "Uusi ID asetettu onnistuneesti. Aloitetaan tyhjänä.";
                 }
 
                 Debug.Log($"Uusi käyttäjän ID asetettu: {currentUserId}");
                 aseta_id_paneli.SetActive(false);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                // Lataus tässä ei ole välttämätön, jos GetItemsForRegularLoad lataa tiedot heti
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
             }));
         }
     }
@@ -166,7 +200,7 @@ public class poistu : MonoBehaviour
 
     private void Start()
     {
-        // Kutsu korutiinia, joka hoitaa käyttäjän ID:n lataamisen/generoinnin ja datan haun
+        // Kutsu korutiinia, joka hoitaa käyttäjän ID:n lataamisen/generoinnin ja datan latauksen
         StartCoroutine(InitializeUserAndLoadData());
 
         // Varmista, että paneelit ovat oikein
@@ -176,7 +210,9 @@ public class poistu : MonoBehaviour
         aseta_id_paneli.SetActive(false);
     }
 
-    // KORJATTU METODI: Yhdistetty käyttäjän ID:n käsittely ja datan lataus
+    /// <summary>
+    /// Lataa tallennetun ID:n tai luo uuden. Jos ID on tallessa, yritetään ladata data.
+    /// </summary>
     IEnumerator InitializeUserAndLoadData()
     {
         string storedUserId = PlayerPrefs.GetString("CurrentUserId", "");
@@ -189,6 +225,7 @@ public class poistu : MonoBehaviour
             string generatedId = GenerateRandomString(64);
             Debug.Log($"Ei tallennettua käyttäjän ID:tä. Generoidaan uusi: {generatedId}");
 
+            // Tarkista, onko ID jo olemassa (epätodennäköistä, mutta varmistetaan)
             yield return StartCoroutine(CheckUserIdExists(generatedId, (exists) => idExistsOnServer = exists));
 
             if (idExistsOnServer)
@@ -206,26 +243,31 @@ public class poistu : MonoBehaviour
         {
             currentUserId = storedUserId;
             Debug.Log($"Latautunut käyttäjän ID: {currentUserId}");
+
+            // UUSI LATAUSLOGIIKKA: Lataa data heti, kun vanha ID löytyy (ei vaadi siirtoavainta)
+            yield return StartCoroutine(GetItemsForRegularLoad(currentUserId));
         }
 
-        // Uudessa turvallisemmassa mallissa datan lataus (GetItems) ei tapahdu automaattisesti Startissa, 
-        // koska se vaatii avaimen. Datan lataus tapahtuu vain lisäyksen jälkeen tai aseta_id() kautta.
-        // Kutsutaan GetItems ilman avainta (palvelin hylkää tämän), vain jotta uudet käyttäjät näkevät tyhjän näkymän.
-        StartCoroutine(GetItems(currentUserId, ""));
+        // HUOM: Vanha GetItems-kutsu (tyhjällä avaimella) poistettu, koska se epäonnistui aina (400 Bad Request).
     }
 
 
     /// <summary>
-    /// Generoi satunnaisen numeromerkkijonon (8 numeroa).
+    /// Generoi satunnaisen merkkijonon (64 merkkiä).
     /// </summary>
-    private string GenerateRandomNumberString(int length)
+    private string GenerateRandomString(int length)
     {
-        const string chars = "0123456789";
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         var stringBuilder = new StringBuilder(length);
-        var random = new System.Random();
-        for (int i = 0; i < length; i++)
+        using (var rng = new RNGCryptoServiceProvider())
         {
-            stringBuilder.Append(chars[random.Next(chars.Length)]);
+            var bytes = new byte[length];
+            rng.GetBytes(bytes);
+
+            for (int i = 0; i < length; i++)
+            {
+                stringBuilder.Append(chars[bytes[i] % chars.Length]);
+            }
         }
         return stringBuilder.ToString();
     }
@@ -327,23 +369,6 @@ public class poistu : MonoBehaviour
         }
     }
 
-    private string GenerateRandomString(int length)
-    {
-        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        var stringBuilder = new StringBuilder(length);
-        using (var rng = new RNGCryptoServiceProvider())
-        {
-            var bytes = new byte[length];
-            rng.GetBytes(bytes);
-
-            for (int i = 0; i < length; i++)
-            {
-                stringBuilder.Append(chars[bytes[i] % chars.Length]);
-            }
-        }
-        return stringBuilder.ToString();
-    }
-
     // --- CRUD Toiminnot (Add, Get, Delete) ---
 
     public void NewItem()
@@ -430,11 +455,35 @@ public class poistu : MonoBehaviour
             else
             {
                 Debug.Log("Esine lähetetty - Vastaus: " + webRequest.downloadHandler.text);
-                ClearItemsList();
-                // HUOM: Avainta ei tarvita /add_item-kutsun jälkeen, mutta GetItems-kutsu vaatii sen.
-                // Koska avainta ei ole Startissa, ladataan tiedot ilman avainta (palvelin hylkää tämän), 
-                // jotta uusi esine näkyy, jos dataa ei ole siirretty.
-                StartCoroutine(GetItems(currentUserId, ""));
+                // KORJAUS: Päivitä lista onnistuneen lähetyksen jälkeen säännöllisellä latauksella
+                yield return StartCoroutine(GetItemsForRegularLoad(currentUserId));
+            }
+        }
+    }
+
+    /// <summary>
+    /// UUSI: Hakee esineet palvelimelta säännöllisessä käytössä ilman siirtoavainta (GET /get_all_items_by_id/{user_id}).
+    /// </summary>
+    IEnumerator GetItemsForRegularLoad(string userId)
+    {
+        // HUOM: Oletetaan, että palvelimella on päätepiste säännölliseen GET-hakuun ID:llä.
+        string url = baseUrl + "/get_all_items_by_id/" + userId;
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        {
+            webRequest.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+            {
+                string responseText = (webRequest.downloadHandler != null) ? webRequest.downloadHandler.text : "Ei vastausdataa";
+                Debug.LogError($"Virhe esineiden haussa (Säännöllinen haku): {webRequest.error} | Vastaus: {responseText}");
+            }
+            else
+            {
+                string responseText = (webRequest.downloadHandler != null) ? webRequest.downloadHandler.text : "";
+                Debug.Log("Esineet vastaanotettu (Säännöllinen haku): " + responseText);
+                ProcessItemsResponse(responseText);
             }
         }
     }
@@ -442,8 +491,15 @@ public class poistu : MonoBehaviour
     /// <summary>
     /// Hakee esineet palvelimelta tilapäisellä avaimella varmennettuna (POST /get_items).
     /// </summary>
-    IEnumerator GetItems(string userId, string oneTimeKey)
+    IEnumerator GetItemsWithTransferKey(string userId, string oneTimeKey)
     {
+        if (string.IsNullOrEmpty(oneTimeKey))
+        {
+            Debug.LogWarning("GetItemsWithTransferKey: Tilapäinen avain puuttuu. Ei lähetetä pyyntöä.");
+            ClearItemsList();
+            yield break;
+        }
+
         string url = baseUrl + "/get_items";
 
         var payloadData = new Dictionary<string, string>
@@ -468,58 +524,72 @@ public class poistu : MonoBehaviour
 
                 if (webRequest.responseCode == 403)
                 {
-                    // Tapahtuu, jos avain puuttuu, on väärä tai vanhentunut
                     Debug.LogError("VIRHE (403): Autentikaatio epäonnistui. Avain puuttuu/väärä/vanhentunut. Vastaus: " + responseText);
                     varoitus.text = "Tietojen lataus epäonnistui: Avain virheellinen tai vanhentunut.";
                 }
                 else
                 {
-                    Debug.LogError($"Virhe esineiden haussa: {webRequest.error} | Vastaus: {responseText}");
+                    Debug.LogError($"Virhe esineiden haussa (Siirtoavain): {webRequest.error} | Vastaus: {responseText}");
                 }
             }
             else
             {
                 string responseText = (webRequest.downloadHandler != null) ? webRequest.downloadHandler.text : "";
-                Debug.Log("Esineet vastaanotettu: " + responseText);
+                Debug.Log("Esineet vastaanotettu (Siirtoavain): " + responseText);
 
-                // Tyhjennä varoitus, jos data ladattiin onnistuneesti
                 if (aseta_id_paneli.activeSelf)
                 {
                     varoitus.text = "Tiedot ladattiin onnistuneesti! Sulje paneeli jatkaaksesi.";
                     one_time_key_input.text = ""; // Tyhjennä avainkenttä onnistumisen jälkeen
                 }
 
-                ClearItemsList();
+                ProcessItemsResponse(responseText);
+            }
+        }
+    }
 
-                if (string.IsNullOrWhiteSpace(responseText) || responseText == "[]")
+    /// <summary>
+    /// Yksinkertaistettu logiikka vastausdatan käsittelyyn (käytetään sekä säännöllisessä latauksessa että siirtoavaimella).
+    /// </summary>
+    private void ProcessItemsResponse(string responseText)
+    {
+        ClearItemsList();
+
+        if (string.IsNullOrWhiteSpace(responseText) || responseText == "[]")
+        {
+            Debug.LogWarning("Palvelimelta saatu vastaus oli tyhjä []. Ei esineitä ladattavaksi.");
+            return;
+        }
+
+        try
+        {
+            JSONNode jsonResponse = JSON.Parse(responseText);
+
+            if (jsonResponse.IsArray)
+            {
+                foreach (JSONNode itemNode in jsonResponse.AsArray)
                 {
-                    Debug.LogWarning("Palvelimelta saatu vastaus oli tyhjä []. Ei esineitä ladattavaksi.");
-                    yield break;
-                }
+                    int id = itemNode["id"].AsInt;
+                    string nimi = itemNode["nimi"]?.Value ?? "";
+                    string numero = itemNode["numero"]?.Value ?? "";
+                    string lisatieto = itemNode["lisatieto"]?.Value ?? "";
+                    string maara = itemNode["maara"]?.Value ?? "";
+                    string verkkosivu = itemNode["verkkosivu"]?.Value ?? "";
 
-                JSONNode jsonResponse = JSON.Parse(responseText);
-
-                if (jsonResponse.IsArray)
-                {
-                    foreach (JSONNode itemNode in jsonResponse.AsArray)
-                    {
-                        int id = itemNode["id"].AsInt;
-                        string nimi = itemNode["nimi"]?.Value ?? "";
-                        string numero = itemNode["numero"]?.Value ?? "";
-                        string lisatieto = itemNode["lisatieto"]?.Value ?? "";
-                        string maara = itemNode["maara"]?.Value ?? "";
-                        string verkkosivu = itemNode["verkkosivu"]?.Value ?? "";
-
-                        lluo uusikuva = Instantiate(muuttuja, ruudukkoja);
-                        uusikuva.Valmistele(id, nimi, numero, lisatieto, maara, verkkosivu);
-                        tavara_lista.Add(uusikuva);
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("Palvelimen vastaus ei ollut odotettu JSON-taulukko: " + responseText);
+                    // HUOM: Muuttuja "muuttuja" on esineen prefab
+                    lluo uusikuva = Instantiate(muuttuja, ruudukkoja);
+                    uusikuva.Valmistele(id, nimi, numero, lisatieto, maara, verkkosivu);
+                    tavara_lista.Add(uusikuva);
                 }
             }
+            else
+            {
+                Debug.LogWarning("Palvelimen vastaus ei ollut odotettu JSON-taulukko: " + responseText);
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Virhe JSON-vastauksen parsinnassa: {e.Message}. Vastaus: {responseText}");
         }
     }
 

@@ -30,7 +30,7 @@ public class popup : MonoBehaviour
     }
     void Start()
     {
-        depug_nappi.SetActive(false);
+        //depug_nappi.SetActive(false);
     }
     public void painettu_salainen()
     {
