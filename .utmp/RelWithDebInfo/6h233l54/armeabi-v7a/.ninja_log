@@ -1,5 +1,5 @@
 # ninja log v5
-697	972	7823388342001417	C:/Users/sante/salista/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6h233l54/obj/armeabi-v7a/libswappywrapper.so	2964692bbc5d89aa
-1	693	7823388339412768	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	14047dc8ad117247
-4	460	7831198160087599	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	14047dc8ad117247
-460	666	7831198161980240	C:/Users/sante/salista/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6h233l54/obj/armeabi-v7a/libswappywrapper.so	2964692bbc5d89aa
+1395	1926	7831780887174922	C:/Users/sante/salista/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6h233l54/obj/armeabi-v7a/libswappywrapper.so	2964692bbc5d89aa
+7	1392	7831780882156850	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	14047dc8ad117247
+3	622	7835449067689906	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	14047dc8ad117247
+622	834	7835449069683541	C:/Users/sante/salista/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6h233l54/obj/armeabi-v7a/libswappywrapper.so	2964692bbc5d89aa
