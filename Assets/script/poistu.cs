@@ -54,7 +54,7 @@ public class poistu : MonoBehaviour
     public TMP_InputField debug_input;
     public TextMeshProUGUI debug_text;
     // HUOM: Tarkista IP-osoite ja portti ennen käyttöä!
-    private readonly string baseUrl = "https://2f87cacb885a.ngrok-free.app"; // julkaisu palvelin
+    private readonly string baseUrl = "https://4085df7d84ea.ngrok-free.app"; // julkaisu palvelin
     //private readonly string baseUrl = "http://192.168.101.107:5001"; //testi palvelin
 
     // --- Käyttäjän ID:n ja avaimen hallinta ---
