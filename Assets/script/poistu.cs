@@ -53,9 +53,11 @@ public class poistu : MonoBehaviour
     public GameObject debug_sivu;
     public TMP_InputField debug_input;
     public TextMeshProUGUI debug_text;
-    // HUOM: Tarkista IP-osoite ja portti ennen käyttöä!
-    private readonly string baseUrl = "https://fa6b3b1bda97.ngrok-free.app"; // julkaisu palvelin
-    //private readonly string baseUrl = "http://192.168.101.107:5001"; //testi palvelin
+    // HUOM: Tarkista IP-osoite ja portti ennen käyttöä! vaihda nykyisin editorissa
+
+    [Header("server url")]
+
+    public string baseUrl; 
 
     // --- Käyttäjän ID:n ja avaimen hallinta ---
 
