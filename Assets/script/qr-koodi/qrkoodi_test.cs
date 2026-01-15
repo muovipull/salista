@@ -1,80 +1,77 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using ZXing;
+using System.Collections;
 
-public class qrkoodi_test : MonoBehaviour
+public class QRScannerTMP : MonoBehaviour
 {
     [Header("UI Elementit")]
-    public TextMeshProUGUI resultText;
-    public RawImage cameraDisplay;
-    public Button scanButton;
+    [SerializeField] private RawImage _cameraDisplay;
+    [SerializeField] private TextMeshProUGUI _resultText;
+    [SerializeField] private Button _scanButton;
 
-    private WebCamTexture camTexture;
-    private BarcodeReader reader; // Käytetään tätä
-    private bool isScanning = false;
+    private WebCamTexture _webCamTexture;
+    private bool _isScanning = false;
 
     void Start()
     {
-        // Alustetaan lukija
-        reader = new BarcodeReader();
-
-        camTexture = new WebCamTexture();
-        if (cameraDisplay != null)
-        {
-            cameraDisplay.texture = camTexture;
-        }
-        camTexture.Play();
-
-        if (scanButton != null)
-        {
-            scanButton.onClick.AddListener(StartScanning);
-        }
-
-        resultText.text = "Paina nappia skannataksesi";
+        _webCamTexture = new WebCamTexture();
+        _cameraDisplay.texture = _webCamTexture;
+        _scanButton.onClick.AddListener(StartScanning);
+        _resultText.text = "Paina nappia skannataksesi";
     }
 
     public void StartScanning()
     {
-        isScanning = true;
-        resultText.text = "Etsitään QR-koodia...";
-        scanButton.interactable = false;
-    }
-
-    void Update()
-    {
-        if (isScanning && camTexture.isPlaying && Time.frameCount % 10 == 0)
+        if (!_webCamTexture.isPlaying)
         {
-            Scan();
+            _webCamTexture.Play();
+
+            // 1. AUTOMAATTITARKENNUS (Vain Android/iOS)
+#if !UNITY_EDITOR
+            _webCamTexture.autoFocusPoint = new Vector2(0.5f, 0.5f);
+#endif
+
+            // 2. KUVAN KÄÄNTÖ 90 ASTETTA
+            // Korjataan RawImagen rotaatio, jotta kuva näkyy oikein puhelimessa
+            _cameraDisplay.rectTransform.localEulerAngles = new Vector3(0, 0, -90f);
+        }
+
+        if (!_isScanning)
+        {
+            _isScanning = true;
+            _resultText.text = "Etsitään QR-koodia...";
+            StartCoroutine(ScanRoutine());
         }
     }
 
-    private void Scan()
+    private IEnumerator ScanRoutine()
     {
-        try
+        IBarcodeReader barcodeReader = new BarcodeReader();
+
+        while (_isScanning)
         {
-            // Haetaan kameran värit
-            Color32[] pixels = camTexture.GetPixels32();
-            int width = camTexture.width;
-            int height = camTexture.height;
-
-            // Luodaan LuminanceSource, joka muuntaa Unityn värit ZXing-muotoon
-            var source = new Color32LuminanceSource(pixels, width, height);
-
-            // Dekoodataan käyttäen lähdettä
-            var result = reader.Decode(source);
-
-            if (result != null)
+            if (_webCamTexture.width > 100)
             {
-                resultText.text = "Tulos: " + result.Text;
-                isScanning = false;
-                scanButton.interactable = true;
-                Handheld.Vibrate();
+                // Huom: ZXing lukee pikselit datasta, vaikka näyttö olisi käännetty UI:ssa
+                var snap = _webCamTexture.GetPixels32();
+                var result = barcodeReader.Decode(snap, _webCamTexture.width, _webCamTexture.height);
+
+                if (result != null)
+                {
+                    _resultText.text = "Tulos: <color=green>" + result.Text + "</color>";
+                    _isScanning = false;
+                    _webCamTexture.Stop();
+                }
             }
+            yield return new WaitForSeconds(0.2f);
         }
-        catch (System.Exception e)
-        {
-            Debug.LogError("QR-virhe: " + e.Message);
-        }
+    }
+
+    void OnDisable()
+    {
+        if (_webCamTexture != null && _webCamTexture.isPlaying)
+            _webCamTexture.Stop();
     }
 }

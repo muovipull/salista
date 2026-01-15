@@ -3262,9 +3262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb912e55f879034fae1fbdf6ec1f9b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::qrkoodi_test
-  resultText: {fileID: 344816940}
-  cameraDisplay: {fileID: 2123612579}
-  scanButton: {fileID: 1730547272}
+  _cameraDisplay: {fileID: 2123612579}
+  _resultText: {fileID: 344816940}
+  _scanButton: {fileID: 1730547272}
 --- !u!114 &123225549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40267,7 +40267,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 123225548}
-        m_TargetAssemblyTypeName: qrkoodi_test, Assembly-CSharp
+        m_TargetAssemblyTypeName: QRScannerTMP, Assembly-CSharp
         m_MethodName: StartScanning
         m_Mode: 1
         m_Arguments:
