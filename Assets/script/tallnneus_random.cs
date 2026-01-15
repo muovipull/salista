@@ -34,9 +34,18 @@ public class tallnneus_random : MonoBehaviour
 
         luo_nappi_text.text = "Luo satunainen";
 
-        pituus.text = "";
-        näyttösalasana.text = "";
+        if(pituus != null)
+        {
 
+            pituus.text = "";
+
+        }
+
+        if (näyttösalasana != null)
+        {
+            näyttösalasana.text = "";
+
+        }
         if (virheviesti != null)
         {
             virheviesti.text = "Tai luo satunnainen salasana oman toiveen mukaan";

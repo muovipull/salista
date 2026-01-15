@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Net.NetworkInformation;
 using System;
 
 public class päivitys : MonoBehaviour
 {
-    public int avauskerta=0;
+    public int avauskerta = 0;
     public GameObject päivitykset;
     public TextMeshProUGUI versio_text;
     public string versio;
@@ -19,6 +18,7 @@ public class päivitys : MonoBehaviour
     public TextMeshProUGUI sivu_leipa;
     public TextMeshProUGUI sivu_tekst;
     public GameObject haly;
+
     [Serializable]
     public class sivudata
     {
@@ -26,118 +26,107 @@ public class päivitys : MonoBehaviour
         [TextArea(1, 15)]
         public string tesksti;
     }
-    
-    
+
     public List<sivudata> sivut;
-        
-    
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
-
-
-
-
-        //Application.targetFrameRate = 30;
-        
-
-
         versio = PlayerPrefs.GetString("version", Application.version);
         versio_text.text = $"V {Application.version}";
         avauskerta = PlayerPrefs.GetInt("avauskerta", 0);
-        if (avauskerta == 1 )
+
+        if (avauskerta == 1)
         {
             avaa();
-            avauskerta=2;
+            avauskerta = 2;
             PlayerPrefs.SetInt("avauskerta", avauskerta);
-
         }
-        if (avauskerta == 0)
+        else if (avauskerta == 0)
         {
-            print("avatuu kerta " + avauskerta);
+            Debug.Log("avatuu kerta " + avauskerta);
             avauskerta = 1;
             PlayerPrefs.SetInt("avauskerta", avauskerta);
         }
+
+        // Tarkistetaan onko versio muuttunut
         if (versio != Application.version && avauskerta == 2)
         {
             avaa();
-
-
+            // Päivitetään tallennettu versio, jotta tämä ei toistu samalla versiolla
+            PlayerPrefs.SetString("version", Application.version);
         }
-
-
-
-
     }
-    
+
     public void avaa()
     {
-        sivut.Add(new sivudata
+        // --- KORJAUS ALKAA ---
+        // Tarkistetaan, onko LadattuOtsikko tyhjä tai onko se jo lisätty listaan
+        if (string.IsNullOrEmpty(Päälataus.LadattuOtsikko))
         {
-            otsikko = Päälataus.LadattuOtsikko,
-            tesksti = Päälataus.LadattuTeksti
-        });
+            Debug.LogWarning("Otsikko on tyhjä, ei lisätä sivua.");
+            return;
+        }
 
+        // Estetään tuplakopiot: etsitään löytyykö otsikko jo listasta
+        bool onJoListalla = sivut.Exists(s => s.otsikko == Päälataus.LadattuOtsikko);
 
-        sivudata viimeinenSivu = sivut[sivut.Count - 1];
-        Debug.Log($"Siirrettävä sivu: '{viimeinenSivu.otsikko}'");
+        if (!onJoListalla)
+        {
+            // Lisätään vain jos ei ole jo olemassa
+            sivudata uusiSivu = new sivudata
+            {
+                otsikko = Päälataus.LadattuOtsikko,
+                tesksti = Päälataus.LadattuTeksti
+            };
 
-        // 2. Poista viimeinen objekti listasta
-        sivut.RemoveAt(sivut.Count - 1);
-
-        // 3. Lisää aiemmin poistettu objekti listan alkuun (indeksi 0)
-        sivut.Insert(0, viimeinenSivu);
-
-
+            // Lisätään uusin päivitys listan alkuun (indeksiin 0)
+            sivut.Insert(0, uusiSivu);
+            Debug.Log("Uusi päivitys sivu lisätty listan alkuun.");
+        }
+        else
+        {
+            Debug.Log("Sivu on jo listalla, ei luoda kopiota.");
+        }
+        // --- KORJAUS PÄÄTTYY ---
 
         päivitykset.SetActive(true);
         sivu = 0;
         paivita_Sivu();
-        
-
-  
-
-
-
     }
+
     public void sulje()
     {
         päivitykset.SetActive(false);
         PlayerPrefs.SetInt("avauskerta", avauskerta);
-
-
-
     }
+
     public void seuraava()
     {
-        sivu++;
-        paivita_Sivu();
-        
-        
-
-
-
-
+        if (sivu < sivut.Count - 1)
+        {
+            sivu++;
+            paivita_Sivu();
+        }
     }
-    public void paivita_Sivu()
-    {
-        sivu_tekst.text = "sivu " + (sivu+1) + " " + sivut[sivu].otsikko;
-        sivu_leipa.text = sivut[sivu].tesksti;
 
-        
-        
-        seura_napppi.SetActive(sivu<sivut.Count-1);
-        edelli_nappi.SetActive(sivu>0);
-    }
-    
     public void edllinen()
     {
-        sivu--;
-        paivita_Sivu();
-        
+        if (sivu > 0)
+        {
+            sivu--;
+            paivita_Sivu();
+        }
+    }
 
+    public void paivita_Sivu()
+    {
+        if (sivut.Count > 0)
+        {
+            sivu_tekst.text = "sivu " + (sivu + 1) + " " + sivut[sivu].otsikko;
+            sivu_leipa.text = sivut[sivu].tesksti;
+        }
+
+        seura_napppi.SetActive(sivu < sivut.Count - 1);
+        edelli_nappi.SetActive(sivu > 0);
     }
 }

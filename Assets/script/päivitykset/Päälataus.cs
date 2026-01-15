@@ -2,31 +2,27 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.Networking;
-using System.Linq; // Tarvitaan .ToArray() -metodille
+using System.Linq;
 
 public class Päälataus : MonoBehaviour
 {
-    // URL-osoitteet tekstitiedostoille
+    // URL-osoitteet
     public static string otsikkoUrl = "https://muovipull.github.io/paivitys/otsikko1.txt";
-    public static string otsikkoUrl2 = "https://muovipull.github.io/paivitys/otsikko2.txt";
-    // --- MUUTOS TÄSSÄ: Nimi muutettu teksti1.txt -> leipa1.txt ---
     public static string tekstiUrl = "https://muovipull.github.io/paivitys/leipa1.txt";
 
-    // Valinnainen: Vedä ja pudota TextMeshProUGUI-objektisi tähän Inspectorissa
     public TextMeshProUGUI targetTextMeshPro;
 
-    // Staattiset muuttujat ladatulle sisällölle
+    // Staattiset muuttujat sisällölle
     public static string LadattuOtsikko { get; private set; } = string.Empty;
-    public static string LadattuOtsikko2 { get; private set; } = string.Empty;
     public static string LadattuTeksti { get; private set; } = string.Empty;
-
-    // Tähän tallennetaan tekstitiedoston sisältö riveittäin
     public static string[] LadatunTekstinRivit { get; private set; } = new string[0];
 
-    // Tapahtumat ilmoittamaan, kun jokin lataus on valmis
+    // Seurataan onko lataus jo tehty kerran pelin aikana
+    public static bool OnkoLadattu { get; private set; } = false;
+
+    // Tapahtumat
     public static event System.Action OnAllFilesLoaded;
     public static event System.Action OnOtsikkoLoaded;
-    public static event System.Action OnOtsikko2Loaded;
     public static event System.Action OnTekstiLoaded;
 
     private int _filesToLoad = 0;
@@ -34,49 +30,36 @@ public class Päälataus : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Päälataus-skripti käynnistyy. Aloitetaan tiedostojen lataus automaattisesti...");
+        // Estetään uusi lataus, jos tiedot on jo olemassa
+        if (OnkoLadattu)
+        {
+            Debug.Log("Tiedot on jo haettu. Käytetään välimuistia.");
+            PaivitaUIJosTarpeen();
+            return;
+        }
+
+        Debug.Log("Ensimmäinen käynnistys: aloitetaan lataus...");
         AloitaAutomaattinenLataus();
     }
 
     private void AloitaAutomaattinenLataus()
     {
         _filesLoaded = 0;
-        _filesToLoad = 3;
+        _filesToLoad = 2; // Vain otsikko ja teksti
 
+        // 1. Otsikon lataus
         StartCoroutine(LoadTextFile(otsikkoUrl, (text) => {
             LadattuOtsikko = text;
-            Debug.Log($"Ladattu otsikko ({otsikkoUrl}):\n{LadattuOtsikko}");
-            if (targetTextMeshPro != null) targetTextMeshPro.text = "Otsikko ladattu: " + text.Substring(0, Mathf.Min(text.Length, 50));
             OnOtsikkoLoaded?.Invoke();
             CheckAllFilesLoaded();
         }));
-        StartCoroutine(LoadTextFile(otsikkoUrl2, (text) => {
-            LadattuOtsikko = text;
-            Debug.Log($"Ladattu otsikko ({otsikkoUrl2}):\n{LadattuOtsikko2}");
-            if (targetTextMeshPro != null) targetTextMeshPro.text = "Otsikko ladattu: " + text.Substring(0, Mathf.Min(text.Length, 50));
-            OnOtsikko2Loaded?.Invoke();
-            CheckAllFilesLoaded();
-        }));
 
+        // 2. Leipätekstin lataus
         StartCoroutine(LoadTextFile(tekstiUrl, (text) => {
             LadattuTeksti = text;
-
-            // Tekstin jakaminen riveiksi
             LadatunTekstinRivit = text.Split(new char[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries)
-                                      .Select(s => s.Trim()) // Poista ylimääräiset välilyönnit rivien alusta/lopusta
+                                      .Select(s => s.Trim())
                                       .ToArray();
-
-            Debug.Log($"Ladattu koko teksti ({tekstiUrl}):\n{LadattuTeksti}");
-            Debug.Log($"Tekstitiedostossa rivejä yhteensä: {LadatunTekstinRivit.Length}");
-
-            // Tulostetaan jokainen rivi konsoliin
-            Debug.Log("--- Ladatun tekstin rivit ---");
-            for (int i = 0; i < LadatunTekstinRivit.Length; i++)
-            {
-                Debug.Log($"Rivi {i + 1}: {LadatunTekstinRivit[i]}");
-            }
-            Debug.Log("-----------------------------");
-
             OnTekstiLoaded?.Invoke();
             CheckAllFilesLoaded();
         }));
@@ -87,8 +70,18 @@ public class Päälataus : MonoBehaviour
         _filesLoaded++;
         if (_filesLoaded >= _filesToLoad)
         {
-            Debug.Log("Kaikki tiedostot ladattu!");
+            OnkoLadattu = true;
+            Debug.Log("Molemmat tiedostot ladattu onnistuneesti!");
+            PaivitaUIJosTarpeen();
             OnAllFilesLoaded?.Invoke();
+        }
+    }
+
+    private void PaivitaUIJosTarpeen()
+    {
+        if (targetTextMeshPro != null && !string.IsNullOrEmpty(LadattuOtsikko))
+        {
+            targetTextMeshPro.text = "Otsikko: " + LadattuOtsikko;
         }
     }
 
@@ -101,8 +94,8 @@ public class Päälataus : MonoBehaviour
             if (webRequest.result == UnityWebRequest.Result.ConnectionError ||
                 webRequest.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError($"Virhe ladattaessa tekstitiedostoa URL:stä {url}: " + webRequest.error);
-                onComplete?.Invoke($"VIRHE: Lataus epäonnistui URL:stä {url}.");
+                Debug.LogError($"Latausvirhe ({url}): {webRequest.error}");
+                onComplete?.Invoke("Latausvirhe");
             }
             else
             {
@@ -111,7 +104,10 @@ public class Päälataus : MonoBehaviour
         }
     }
 
-    public void ReloadOtsikko() { StartCoroutine(LoadTextFile(otsikkoUrl, (text) => LadattuOtsikko = text)); }
-    public void ReloadOtsikko2() { StartCoroutine(LoadTextFile(otsikkoUrl2, (text) => LadattuOtsikko2 = text)); }
-    public void ReloadTeksti() { StartCoroutine(LoadTextFile(tekstiUrl, (text) => LadattuTeksti = text)); }
+    // Jos tarvitset myöhemmin napin, joka päivittää tiedot väkisin:
+    public void PakotaPaivitys()
+    {
+        OnkoLadattu = false;
+        AloitaAutomaattinenLataus();
+    }
 }

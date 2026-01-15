@@ -54,7 +54,7 @@ public class poistu : MonoBehaviour
     private string currentOneTimeKey;
 
     [Header("Server Config")]
-    public string baseUrl = "https://4085df7d84ea.ngrok-free.app";
+    public string baseUrl = "";
 
     private void Awake() { Instance = this; }
 
