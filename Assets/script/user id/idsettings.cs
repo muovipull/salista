@@ -7,6 +7,9 @@ public class idsettings : MonoBehaviour
     public GameObject tastapoispin;
     public GameObject tahantoisestapin;
 
+
+
+
     [Header("qr")]
     [SerializeField]
 

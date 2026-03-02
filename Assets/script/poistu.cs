@@ -50,11 +50,14 @@ public class poistu : MonoBehaviour
     private List<ItemData> offline_data_lista = new List<ItemData>();
 
     public static poistu Instance;
-    private string currentUserId;
+    public string currentUserId;
     private string currentOneTimeKey;
 
+    // --- LUKKO SPÄMMIN ESTOON ---
+    private bool isGeneratingKey = false;
+
     [Header("Server Config")]
-    public string baseUrl = "";
+    public string baseUrl = "http://127.0.0.1:5001"; // Varmista että portti on oikein
 
     private void Awake() { Instance = this; }
 
@@ -75,7 +78,6 @@ public class poistu : MonoBehaviour
             StartCoroutine(SynkronoiKaikki());
         }
 
-        // Varmista alkutila
         if (aseta_id_paneli) aseta_id_paneli.SetActive(false);
         if (nayta_id_paneli) nayta_id_paneli.SetActive(false);
     }
@@ -160,10 +162,14 @@ public class poistu : MonoBehaviour
         }
     }
 
+    // KORJATTU: Käyttää nyt POST-metodia ja JSON-dataa 404-virheen sijaan
     IEnumerator GetItemsForRegularLoad(string userId)
     {
-        string url = baseUrl + "/get_all_items_by_id/" + userId;
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        string url = baseUrl + "/get_items";
+        var payload = new Dictionary<string, string> { { "user_id", userId }, { "one_time_key", "" } };
+        string json = JsonConvert.SerializeObject(payload);
+
+        using (UnityWebRequest webRequest = CreatePostRequest(url, json))
         {
             yield return webRequest.SendWebRequest();
             if (webRequest.result == UnityWebRequest.Result.Success)
@@ -175,11 +181,16 @@ public class poistu : MonoBehaviour
                 TallennaOfflineMuistiin();
                 PaivitaRuutu();
             }
+            else
+            {
+                Debug.LogWarning("Regular load failed. Server requires valid key or route is blocked.");
+            }
         }
     }
 
     IEnumerator DeleteItemFromServer(string userId, int itemId)
     {
+        // Huom: Varmista että Flaskissa on /delete_item/<user_id>/<item_id> reitti!
         string url = baseUrl + "/delete_item/" + userId + "/" + itemId;
         using (UnityWebRequest webRequest = UnityWebRequest.Delete(url))
         {
@@ -189,13 +200,18 @@ public class poistu : MonoBehaviour
 
     // --- SIIRTOAVAIN LOGIIKKA ---
 
-    public void PyydaSiirtoavain()
+    public void PyydaSiirtoavain(TextMeshProUGUI tekstiulos, TextMeshProUGUI aikatesktiulos)
     {
-        StartCoroutine(GenerateTransferKey(currentUserId));
+        if (isGeneratingKey) return;
+        StartCoroutine(GenerateTransferKey(currentUserId, tekstiulos, aikatesktiulos));
     }
 
-    IEnumerator GenerateTransferKey(string userId)
+    // Lisää tämä muuttuja luokan yläosaan muiden muuttujien joukkoon
+    private Coroutine aktiivinenLaskuri;
+
+    IEnumerator GenerateTransferKey(string userId, TextMeshProUGUI teksti, TextMeshProUGUI aikatesktiulos)
     {
+        isGeneratingKey = true;
         string url = baseUrl + "/generate_transfer_key";
         var payload = new Dictionary<string, string> { { "user_id", userId } };
         string json = JsonConvert.SerializeObject(payload);
@@ -207,23 +223,50 @@ public class poistu : MonoBehaviour
             {
                 JSONNode jsonResponse = JSON.Parse(webRequest.downloadHandler.text);
                 currentOneTimeKey = jsonResponse["one_time_key"]?.Value;
-                int expiry = jsonResponse["expires_in_seconds"].AsInt;
-                generated_key_text.text = $"Avain: <color=yellow>{currentOneTimeKey}</color>";
-                StartCoroutine(UpdateExpiryDisplay(expiry));
+
+                // Flask palauttaa "expires_in", joka on sekunteja tästä hetkestä
+                int expirySekunnit = jsonResponse["expires_in"].AsInt;
+
+                teksti.text = $"Avain: <color=yellow>{currentOneTimeKey}</color>";
+
+                // --- TÄRKEÄ KORJAUS ---
+                // Jos vanha laskuri on vielä käynnissä, pysäytetään se ennen uuden aloitusta
+                if (aktiivinenLaskuri != null)
+                {
+                    StopCoroutine(aktiivinenLaskuri);
+                }
+
+                // Käynnistetään uusi laskuri ja tallennetaan se muuttujaan
+                aktiivinenLaskuri = StartCoroutine(UpdateExpiryDisplay(expirySekunnit, aikatesktiulos));
+            }
+            else
+            {
+                Debug.LogError("Avaimen haku epäonnistui: " + webRequest.error);
             }
         }
+        isGeneratingKey = false;
     }
 
-    IEnumerator UpdateExpiryDisplay(int totalSeconds)
+    IEnumerator UpdateExpiryDisplay(int totalSeconds, TextMeshProUGUI aikateskti)
     {
-        float expiryTime = Time.time + totalSeconds;
-        while (Time.time < expiryTime)
+        // Käytetään mieluummin reaaliaikaa kuin Time.timea, jotta laskenta on tarkempaa
+        float loppuAika = Time.realtimeSinceStartup + totalSeconds;
+
+        while (Time.realtimeSinceStartup < loppuAika)
         {
-            float rem = expiryTime - Time.time;
-            key_expiry_text.text = $"Voimassa: {Mathf.FloorToInt(rem / 60):00}:{Mathf.FloorToInt(rem % 60):00}";
-            yield return new WaitForSeconds(1f);
+            float jaljella = loppuAika - Time.realtimeSinceStartup;
+
+            int minuutit = Mathf.FloorToInt(jaljella / 60);
+            int sekunnit = Mathf.FloorToInt(jaljella % 60);
+
+            aikateskti.text = string.Format("Voimassa: {0:00}:{1:00}", minuutit, sekunnit);
+
+            // Odotetaan tasan yksi sekunti reaaliaikaa
+            yield return new WaitForSecondsRealtime(1f);
         }
-        key_expiry_text.text = "Vanhentunut";
+
+        aikateskti.text = "<color=red>Vanhentunut</color>";
+        aktiivinenLaskuri = null; // Nollataan muuttuja, kun laskuri loppuu
     }
 
     public void aseta_id()
