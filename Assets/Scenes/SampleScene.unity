@@ -2512,10 +2512,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7df9352159f3344094d520e8cb3b876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::idsettings
-  tastapoispin: {fileID: 0}
-  tahantoisestapin: {fileID: 0}
-  tastapoisqr: {fileID: 0}
-  tahantoisestaqr: {fileID: 0}
+  tastapoispin: {fileID: 1546500904}
+  tahantoisestapin: {fileID: 1308115302}
+  tastapoisqr: {fileID: 1267764271}
+  tahantoisestaqr: {fileID: 1156583421}
   valikko: {fileID: 97347574}
   tapa: 
 --- !u!114 &97347576
@@ -21213,6 +21213,7 @@ MonoBehaviour:
   key_expiry_text: {fileID: 268985729}
   ruudukkoja: {fileID: 1782060907}
   tavara_lista: []
+  currentUserId: 
   baseUrl: https://salistaserver.share.zrok.io
 --- !u!4 &786270579
 Transform:
@@ -23102,7 +23103,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: assssss
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -24198,9 +24199,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 786270578}
-        m_TargetAssemblyTypeName: poistu, Assembly-CSharp
-        m_MethodName: PyydaSiirtoavain
+      - m_Target: {fileID: 1267764275}
+        m_TargetAssemblyTypeName: qrmaker, Assembly-CSharp
+        m_MethodName: teeqr
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -32222,6 +32223,7 @@ GameObject:
   - component: {fileID: 1267764272}
   - component: {fileID: 1267764274}
   - component: {fileID: 1267764273}
+  - component: {fileID: 1267764275}
   m_Layer: 5
   m_Name: nayta id qr
   m_TagString: Untagged
@@ -32290,6 +32292,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1267764271}
   m_CullTransparentMesh: 1
+--- !u!114 &1267764275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267764271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c835b081f961548bbb3b3302ec8c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::qrmaker
+  paakoodi: {fileID: 786270578}
+  kuva: {fileID: 39651699}
+  siirtoavain_tekstiulos: {fileID: 835194260}
+  aika_teskstiulos: {fileID: 1616177722}
+  info: {fileID: 569179918}
 --- !u!1 &1276725567
 GameObject:
   m_ObjectHideFlags: 0
@@ -40530,7 +40549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1111111111111111
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
