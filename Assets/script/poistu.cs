@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using TMPro;
+using NUnit.Framework.Internal;
 
 [System.Serializable]
 public class ItemData
@@ -35,15 +36,6 @@ public class poistu : MonoBehaviour
     public InputField maara1;
     public InputField verkkosivu1;
 
-    [Header("ID & Siirtoavain UI")]
-    public GameObject aseta_id_paneli;
-    public GameObject nayta_id_paneli;
-    public TextMeshProUGUI nayta_id_text;
-    public TMP_InputField aseta_id_input;
-    public TMP_InputField one_time_key_input;
-    public TextMeshProUGUI varoitus;
-    public TextMeshProUGUI generated_key_text;
-    public TextMeshProUGUI key_expiry_text;
 
     public Transform ruudukkoja;
     public List<lluo> tavara_lista = new List<lluo>();
@@ -78,8 +70,6 @@ public class poistu : MonoBehaviour
             StartCoroutine(SynkronoiKaikki());
         }
 
-        if (aseta_id_paneli) aseta_id_paneli.SetActive(false);
-        if (nayta_id_paneli) nayta_id_paneli.SetActive(false);
     }
 
     // --- SYNKRONOINTI ---
@@ -269,24 +259,25 @@ public class poistu : MonoBehaviour
         aktiivinenLaskuri = null; // Nollataan muuttuja, kun laskuri loppuu
     }
 
-    public void aseta_id()
+    public void aseta_id(TMP_InputField id, TMP_InputField kerta_koodi, TextMeshProUGUI info)
     {
-        string newId = aseta_id_input.text.Trim();
-        string key = one_time_key_input.text.Trim();
+        string newId = id.text.Trim();
+        string key = kerta_koodi.text.Trim();
 
-        if (newId.Length != 64) { varoitus.text = "ID:n pituus virheellinen."; return; }
+        if (newId.Length != 64) { info.text = "ID:n pituus virheellinen."; return; }
 
         currentUserId = newId;
         PlayerPrefs.SetString("CurrentUserId", currentUserId);
         PlayerPrefs.Save();
+        info.text = "Uusi ID asetettu onnsituneesti ja ladattu uudet tiedot";
 
         if (!string.IsNullOrEmpty(key))
-            StartCoroutine(GetItemsWithTransferKey(currentUserId, key));
+            StartCoroutine(GetItemsWithTransferKey(currentUserId, key, info));
         else
             StartCoroutine(GetItemsForRegularLoad(currentUserId));
     }
 
-    IEnumerator GetItemsWithTransferKey(string userId, string key)
+    IEnumerator GetItemsWithTransferKey(string userId, string key, TextMeshProUGUI varoitus)
     {
         string url = baseUrl + "/get_items";
         var payload = new Dictionary<string, string> { { "user_id", userId }, { "one_time_key", key } };
@@ -295,13 +286,13 @@ public class poistu : MonoBehaviour
             yield return webRequest.SendWebRequest();
             if (webRequest.result == UnityWebRequest.Result.Success)
             {
-                varoitus.text = "Tiedot haettu avaimella!";
+                varoitus.text = "Uusi ID asetettu onnsituneesti ja ladattu uudet tiedot!";
                 var uusiLista = JsonConvert.DeserializeObject<List<ItemData>>(webRequest.downloadHandler.text);
                 offline_data_lista = uusiLista;
                 TallennaOfflineMuistiin();
                 PaivitaRuutu();
             }
-            else varoitus.text = "Virhe siirtoavaimessa.";
+            else varoitus.text = "Sattui virhe id:n tai koodin asettamisessa yritä uudeleen";
         }
     }
 
@@ -357,8 +348,6 @@ public class poistu : MonoBehaviour
 
     public void OpenAddItemForm() { canvas.SetActive(true); canvas1.SetActive(false); }
     public void CloseAddItemForm() { canvas.SetActive(false); canvas1.SetActive(true); }
-    public void nayta_id() { nayta_id_paneli.SetActive(true); nayta_id_text.text = currentUserId; }
-    public void piilota_id() { nayta_id_paneli.SetActive(false); }
-    public void avaa_id_asetus() { aseta_id_paneli.SetActive(true); varoitus.text = ""; }
-    public void sulje_id_asetus() { aseta_id_paneli.SetActive(false); }
+
+
 }

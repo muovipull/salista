@@ -47,6 +47,8 @@ public class qrmaker : MonoBehaviour
         else
         {
             Debug.LogError("QR-koodin lataaminen epäonnistui: " + www.error);
+            info.text = "QR-koodin lataaminen epäonnistui, yritä uudestaan";
+
         }
     }
 

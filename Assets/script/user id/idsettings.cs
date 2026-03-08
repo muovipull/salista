@@ -7,7 +7,7 @@ public class idsettings : MonoBehaviour
     public GameObject tastapoispin;
     public GameObject tahantoisestapin;
 
-
+    public GameObject pinvalikko;
 
 
     [Header("qr")]
@@ -16,75 +16,66 @@ public class idsettings : MonoBehaviour
     public GameObject tastapoisqr;
     public GameObject tahantoisestaqr;
 
-    public GameObject valikko;
+    public GameObject qrvalikko;
 
-    public string tapa;
+    [Header("id_kaikki")]
+    public GameObject id_paakaikki_asiat;
 
-    public void nautaid()
+    public void nautaidpin()
     {
-        valikko.SetActive(false);
 
-        if (tapa == "pin")
-        {
-            valikko.SetActive(false);
-            tahantoisestapin.SetActive(true);
-        }
+        qrvalikko.SetActive(false);
+        pinvalikko.SetActive(false);
 
-        if (tapa == "qr")
-        {
-            valikko.SetActive(false);
-            tahantoisestaqr.SetActive(true);
-        }
-
+        tastapoispin.SetActive(true);
 
     }
-    public void asetaid()
+
+    public void asetaidpin()
     {
-        valikko.SetActive(false);
+        qrvalikko.SetActive(false);
+        pinvalikko.SetActive(false);
 
-        if (tapa == "pin")
-        {
-            valikko.SetActive(false);
-            tastapoispin.SetActive(true);
-        }
-
-        if (tapa == "qr")
-        {
-            valikko.SetActive(false);
-            tastapoisqr.SetActive(true);
-        }
-
+        tahantoisestapin.SetActive(true);
 
     }
+
+    public void nautaidqr()
+    {
+
+        qrvalikko.SetActive(false);
+        pinvalikko.SetActive(false);
+
+        tastapoispin.SetActive(true);
+
+    }
+
+    public void asetaidqr()
+    {
+        qrvalikko.SetActive(false);
+        pinvalikko.SetActive(false);
+
+        tahantoisestaqr.SetActive(true);
+
+    }
+
     public void poistu()
     {
-
-        valikko.SetActive(false);
+        qrvalikko.SetActive(false);
+        pinvalikko.SetActive(false);
+        id_paakaikki_asiat.SetActive(true);
 
     }
 
     public void avaavalikkopin()
     {
-        valikko.SetActive(true);
-        tapa = "pin";
-
-
+        pinvalikko.SetActive(true);
+        id_paakaikki_asiat.SetActive(true);
     }
     public void avaavalikkoqr()
     {
-        valikko.SetActive(true);
-        tapa = "qr";
+        qrvalikko.SetActive(true);
+        id_paakaikki_asiat.SetActive(true);
 
-    }
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
