@@ -21,7 +21,7 @@ public class AsetaPin : MonoBehaviour
 
     public void aseta_uusi()
     {
-        poistu.aseta_id(id_input, kerta_koodi_input, info);
+        poistu.aseta_id(id_input.text, kerta_koodi_input, info);
 
     }
 

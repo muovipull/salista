@@ -46,7 +46,7 @@ public class idsettings : MonoBehaviour
         qrvalikko.SetActive(false);
         pinvalikko.SetActive(false);
 
-        tastapoispin.SetActive(true);
+        tastapoisqr.SetActive(true);
 
     }
 

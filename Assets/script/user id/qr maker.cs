@@ -22,6 +22,9 @@ public class qrmaker : MonoBehaviour
     public TextMeshProUGUI aika_teskstiulos;
     public TextMeshProUGUI info;
 
+    public GameObject qrvalikko;
+    public GameObject nautaqrvalikko;
+    public GameObject qrkuva;
 
     public void teeqr() 
     {
@@ -31,6 +34,7 @@ public class qrmaker : MonoBehaviour
 
         paakoodi.PyydaSiirtoavain(siirtoavain_tekstiulos, aika_teskstiulos);
         info.text = "Tämä on sinun käyttäjä id qr koodina";
+        qrkuva.SetActive(true);
 
     }
 
@@ -57,6 +61,13 @@ public class qrmaker : MonoBehaviour
     void Start()
     {
         info.text = "Paina pyydäsiirtoavain siirtääksesi tiedot";
+        qrkuva.SetActive(false);
+    }
+
+    public void sulje()
+    {
+        qrvalikko.SetActive(true);
+        nautaqrvalikko.SetActive(false);
     }
 
     // Update is called once per frame

@@ -49,7 +49,7 @@ public class poistu : MonoBehaviour
     private bool isGeneratingKey = false;
 
     [Header("Server Config")]
-    public string baseUrl = "http://127.0.0.1:5001"; // Varmista että portti on oikein
+    public string baseUrl = ""; // Varmista että portti on oikein
 
     private void Awake() { Instance = this; }
 
@@ -259,9 +259,9 @@ public class poistu : MonoBehaviour
         aktiivinenLaskuri = null; // Nollataan muuttuja, kun laskuri loppuu
     }
 
-    public void aseta_id(TMP_InputField id, TMP_InputField kerta_koodi, TextMeshProUGUI info)
+    public void aseta_id(string id, TMP_InputField kerta_koodi, TextMeshProUGUI info)
     {
-        string newId = id.text.Trim();
+        string newId = id.Trim();
         string key = kerta_koodi.text.Trim();
 
         if (newId.Length != 64) { info.text = "ID:n pituus virheellinen."; return; }
