@@ -25,7 +25,12 @@ public class ItemData
 
 public class poistu : MonoBehaviour
 {
+    [Header("muut koodit")]
+    public Siirrä_salaiset siirrä_Salaiset;
     public lluo muuttuja;
+
+    [Header("canvaat")]
+
     public GameObject canvas;
     public GameObject canvas1;
 
@@ -192,7 +197,11 @@ public class poistu : MonoBehaviour
 
     public void PyydaSiirtoavain(TextMeshProUGUI tekstiulos, TextMeshProUGUI aikatesktiulos)
     {
+
         if (isGeneratingKey) return;
+
+        siirrä_Salaiset.vie();
+
         StartCoroutine(GenerateTransferKey(currentUserId, tekstiulos, aikatesktiulos));
     }
 
@@ -275,11 +284,13 @@ public class poistu : MonoBehaviour
             StartCoroutine(GetItemsWithTransferKey(currentUserId, key, info));
         else
             StartCoroutine(GetItemsForRegularLoad(currentUserId));
+            siirrä_Salaiset.tuo(id, kerta_koodi.ToString());
     }
 
     IEnumerator GetItemsWithTransferKey(string userId, string key, TextMeshProUGUI varoitus)
     {
         string url = baseUrl + "/get_items";
+        
         var payload = new Dictionary<string, string> { { "user_id", userId }, { "one_time_key", key } };
         using (UnityWebRequest webRequest = CreatePostRequest(url, JsonConvert.SerializeObject(payload)))
         {
@@ -294,6 +305,7 @@ public class poistu : MonoBehaviour
             }
             else varoitus.text = "Sattui virhe id:n tai koodin asettamisessa yritä uudeleen";
         }
+        
     }
 
     // --- APUMETODIT ---

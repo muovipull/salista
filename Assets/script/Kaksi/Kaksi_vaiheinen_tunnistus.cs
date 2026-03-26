@@ -10,7 +10,7 @@ using TMPro;
 
 public class Kaksi_vaiheinen_tunnistus : MonoBehaviour
 {
-    public static string tili = "santeri.taavitsainen.koodaaja@gmail.com";
+    public static string tili = "";
     public static string secret = "";
     public int eka;
     public RawImage qrCodeImage;
