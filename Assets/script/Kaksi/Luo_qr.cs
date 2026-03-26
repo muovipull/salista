@@ -1,34 +1,45 @@
 
-using UnityEngine;
+using System.Collections;
 using System.Net.NetworkInformation;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using System.Collections;
+using ZXing;
+using ZXing.QrCode;
 
 public class Luo_qr : MonoBehaviour
 {
-    public RawImage qrCodeImage;
-    private string otpauthUrl = "otpauth://totp/Salista:santeri.taavitsainen.koodaaja@gmil.com?secret=ABWSTDQHG3OFIATTT4&issuer=Salista&digits=6";
+    [SerializeField] private RawImage displayImage; // Raahaa tähän UI:n RawImage
 
     void Start()
     {
-        string qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + UnityWebRequest.EscapeURL(otpauthUrl);
-        StartCoroutine(LoadQRCode(qrCodeUrl));
+        string teksti = "https://www.google.fi";
+        Texture2D qrKoodi = GeneroiQR(teksti, 256, 256);
+        displayImage.texture = qrKoodi;
     }
 
-    IEnumerator LoadQRCode(string url)
+    private Texture2D GeneroiQR(string teksti, int leveys, int korkeus)
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
-        yield return www.SendWebRequest();
+        // Alustetaan kirjoittaja
+        var writer = new BarcodeWriter
+        {
+            Format = BarcodeFormat.QR_CODE,
+            Options = new QrCodeEncodingOptions
+            {
+                Height = korkeus,
+                Width = leveys,
+                Margin = 1 // Valkoinen reunus koodin ympärillä
+            }
+        };
 
-        if (www.result == UnityWebRequest.Result.Success)
-        {
-            Texture2D qrCodeTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            qrCodeImage.texture = qrCodeTexture;
-        }
-        else
-        {
-            Debug.LogError("QR-koodin lataaminen epäonnistui: " + www.error);
-        }
+        // Luodaan värit (Color32 array)
+        Color32[] pikselit = writer.Write(teksti);
+
+        // Luodaan uusi tekstuuri ja asetetaan pikselit
+        Texture2D tekstuuri = new Texture2D(leveys, korkeus);
+        tekstuuri.SetPixels32(pikselit);
+        tekstuuri.Apply();
+
+        return tekstuuri;
     }
 }

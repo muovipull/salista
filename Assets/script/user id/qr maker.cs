@@ -1,14 +1,16 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using System.Collections;
-using TMPro;
+using ZXing;
+using ZXing.QrCode;
 
 
 
 public class qrmaker : MonoBehaviour
 {
-
+    
 
     [Header("poistu")]
     [SerializeField]
@@ -29,12 +31,16 @@ public class qrmaker : MonoBehaviour
     public void teeqr() 
     {
 
-        string qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + UnityWebRequest.EscapeURL(paakoodi.currentUserId);
-        StartCoroutine(LoadQRCode(qrCodeUrl));
+        //string qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + UnityWebRequest.EscapeURL(paakoodi.currentUserId);
+        //StartCoroutine(LoadQRCode(qrCodeUrl));
 
         paakoodi.PyydaSiirtoavain(siirtoavain_tekstiulos, aika_teskstiulos);
         info.text = "Tämä on sinun käyttäjä id qr koodina";
         qrkuva.SetActive(true);
+
+        string teksti = UnityWebRequest.EscapeURL(paakoodi.currentUserId).ToString();
+        Texture2D qrKoodi = GeneroiQR(teksti, 256, 256);
+        kuva.texture = qrKoodi;
 
     }
 
@@ -74,5 +80,29 @@ public class qrmaker : MonoBehaviour
     void Update()
     {
         
+    }
+    private Texture2D GeneroiQR(string teksti, int leveys, int korkeus)
+    {
+        // Alustetaan kirjoittaja
+        var writer = new BarcodeWriter
+        {
+            Format = BarcodeFormat.QR_CODE,
+            Options = new QrCodeEncodingOptions
+            {
+                Height = korkeus,
+                Width = leveys,
+                Margin = 1 // Valkoinen reunus koodin ympärillä
+            }
+        };
+
+        // Luodaan värit (Color32 array)
+        Color32[] pikselit = writer.Write(teksti);
+
+        // Luodaan uusi tekstuuri ja asetetaan pikselit
+        Texture2D tekstuuri = new Texture2D(leveys, korkeus);
+        tekstuuri.SetPixels32(pikselit);
+        tekstuuri.Apply();
+
+        return tekstuuri;
     }
 }
