@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using System;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TOTP : MonoBehaviour
 
@@ -117,11 +118,15 @@ public class TOTP : MonoBehaviour
     }
     private void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        if (Kaksi_vaiheinen_tunnistus.otettu == "true")
         {
-            Main();
+            if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame)
+            {
+                Main();
+            }
+
         }
+
     }
     private void Start()
     {

@@ -36,7 +36,6 @@ public class satunnainen : MonoBehaviour
     }
     public void peruuta()
     {
-        print("Peruutettu");
         satuinnais.SetActive(false);
         paaruutu.SetActive(true);
     }

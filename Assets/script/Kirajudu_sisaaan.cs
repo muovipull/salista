@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 
 public class Kirajudu_sisaaan : MonoBehaviour
@@ -29,6 +30,7 @@ public class Kirajudu_sisaaan : MonoBehaviour
 
     [Header("muuttujat")]
     public int tallennettu;
+    public string sisalla = "false";
 
     public void katso()
     {
@@ -100,11 +102,13 @@ public class Kirajudu_sisaaan : MonoBehaviour
         {
             paa_nautt.SetActive (true);
             kirajaudu_sivu.SetActive(false);
+            sisalla = "true";
         }
         if (((salasana.text.ToString() == salasananvaihto.salistatlalla) || (salasana.text.ToString() == salasananvaihto.varasalistalla)) && Kaksi_vaiheinen_tunnistus.otettu == "true")
         {
             kaksi_vaihe_kirja.SetActive(true);
             kirajaudu_sivu.SetActive(false);
+            sisalla = "true";
         }
 
 
@@ -117,6 +121,7 @@ public class Kirajudu_sisaaan : MonoBehaviour
         paa_nautt.SetActive (true);
         kirajaudu_sivu.SetActive (false);
         kaksi_vaihe_kirja.SetActive (false);
+        sisalla = "true";
 
 
     }
@@ -126,17 +131,27 @@ public class Kirajudu_sisaaan : MonoBehaviour
         salasananvaihto.salistatlalla = PlayerPrefs.GetString("Tallennus1", "1234");
         katso();
         paa_nautt.SetActive(false);
+        sisalla = "false";
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        if (sisalla == "false")
         {
-            kirjaudu();
-            tallenna();
+            if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame)
+            {
+
+                tallenna();
+
+
+
+                kirjaudu();
+
+            }
         }
+        
     }
    
 }

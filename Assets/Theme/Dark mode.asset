@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a20a2c9ce2ae3c45823947ed5d7bb65, type: 3}
+  m_Name: Dark mode
+  m_EditorClassIdentifier: Assembly-CSharp::AppTheme
+  Musta: {r: 0, g: 0, b: 0, a: 0}
+  valkoinen: {r: 1, g: 1, b: 1, a: 0}
+  tausta: {r: 0.054901965, g: 0.054901965, b: 0.054901965, a: 1}
+  tekstivari: {r: 0, g: 0, b: 0, a: 0}
+  input_alku: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 0}
+  input_loppu: {r: 0, g: 0, b: 0, a: 0}
+  poistu: {r: 1, g: 0, b: 0, a: 0}
+  "seuraava_hyv\xE4ksy": {r: 0.006027043, g: 1, b: 0, a: 0}
+  sininen_valikko: {r: 0.3443396, g: 0.5336548, b: 1, a: 0}
+  violetti_valikko: {r: 0.70877, g: 0.5330188, b: 1, a: 0}
+  pinkki_valikko: {r: 1, g: 0.7311321, b: 0.9766884, a: 0}
+  turkoosi_valikko: {r: 0.627451, g: 0.9528437, b: 1, a: 1}
+  yhteinenMateriaali: {fileID: 2100000, guid: ba35587723c65df4eb682e72cb60e65b, type: 2}

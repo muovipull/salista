@@ -6933,7 +6933,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 786270583}
         m_TargetAssemblyTypeName: Ohje, Assembly-CSharp
-        m_MethodName: Seuraava
+        m_MethodName: seuraava
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7608,7 +7608,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 786270583}
         m_TargetAssemblyTypeName: Ohje, Assembly-CSharp
-        m_MethodName: Sulje
+        m_MethodName: sulje
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14234,7 +14234,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 786270583}
         m_TargetAssemblyTypeName: Ohje, Assembly-CSharp
-        m_MethodName: Edellinen
+        m_MethodName: edllinen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15715,7 +15715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &588727616
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15780,6 +15780,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 786270583}
+        m_TargetAssemblyTypeName: Ohje, Assembly-CSharp
+        m_MethodName: avaa
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 786270586}
         m_TargetAssemblyTypeName: popup, Assembly-CSharp
         m_MethodName: painettu_todennus
@@ -15790,18 +15802,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 786270583}
-        m_TargetAssemblyTypeName: Ohje, Assembly-CSharp
-        m_MethodName: AvaaOhjeet
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: kosmetiikka, siirto, kaksi vaihe, pin, tallennus, random
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &588727618
@@ -20754,19 +20754,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb65783c8407e44fa8c6cd4f50a6a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseRequestUrl: https://salista.lepuutin.com/api
-  kategoriat:
-  - pin
-  - tallennus
-  - random
-  - kaksi vaihe
-  - siirto
-  - kosmetiikka
   ohje_sivu: {fileID: 157257505}
-  sivu_otsikko_teksti: {fileID: 1112016984}
-  sivu_leipateksti: {fileID: 867889498}
-  seura_nappi: {fileID: 224998154}
+  ohje_avaus_nappi: {fileID: 588727615}
+  sivu_leipa: {fileID: 867889498}
+  sivu_tekst: {fileID: 1112016984}
+  sivu: 0
+  seura_napppi: {fileID: 224998154}
   edelli_nappi: {fileID: 516618178}
+  sivut:
+  - otsikko: Pinkoodi
+    tesksti: "mik\xE4 on Pinkoodi?\r\n-pinkoodi on koodi jolla kirjaudut sovellukseen
+      sis\xE4\xE4n sinut pyydet\xE4\xE4n lis\xE4\xE4m\xE4\xE4n sellainen kun avaat
+      sovelluksen ensimm\xE4isen kerran.\n\r\nMiten vaihdan Pinkoodin?\n1. Mene asetuksiin
+      2. Paina vaihda salasana \n3. sy\xF6t\xE4 vanha pinkoodi tai varapinkoodi ja
+      paina seuraava \n4. Kirjoita uusi pinkoodi ja paina seuraava niin pinkoodi
+      on vaihdettu\n\nMiten vaihdan varapinkoodin\n1. Mene asetuksiin 2. Paina vaihda
+      varapinkoodi\n3. Sy\xF6t\xE4 uusi varapinkoodi 4. Paina aseta ja sitten poistu\n"
+  - otsikko: Tallennus
+    tesksti: "miten tallennan salasanan / s\xE4hk\xF6postin?\r\n1. tallenna salasana
+      /s\xE4hk\xF6posti painamalla uusi salasana\r\n2. sy\xF6t\xE4 haluamasi tiedot
+      kohtiin\r\n3. paina tallenna\n\nmiten n\xE4en tallentamani salasanan?\r\n1.
+      n\xE4et salalanan painamalla painiketta jossa lukee n\xE4yt\xE4\r\n2. Sy\xF6t\xE4
+      Pinkoodisi kentt\xE4\xE4n.\r\n3. paina seuraava\r\n4. n\xE4\xE4t salasanasi
+      voit kopioida sen painamalla kopioi.\r\n5. paina sulje piilottaaksesi salasanan\r\n\r\nmiten
+      n\xE4\xE4n tallentamani s\xE4hk\xF6postin?\r\n1. n\xE4et salalanan painamalla
+      painiketta jossa lukee n\xE4yt\xE4\r\n2. Sy\xF6t\xE4 Pinkoodisi kentt\xE4\xE4n.\r\n3
+      paina seuraava\r\n4. n\xE4\xE4t s\xE4hk\xF6postisii voit kopioida sen painamalla
+      kopioi.\r\n5. paina sulje piilottaaksesi s\xE4hk\xF6posti osoitteen."
+  - otsikko: Kosmetiikkka
+    tesksti: 'Miten vaihdan teeman?
+
+      1. Mene asetuksiin
+
+      2. mene kohtaan
+      kosmetiikka
+
+      3. paina vaihda teema'
 --- !u!114 &786270586
 MonoBehaviour:
   m_ObjectHideFlags: 0
