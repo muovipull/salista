@@ -30,7 +30,6 @@ public class poistu : MonoBehaviour
     public lluo muuttuja;
 
     [Header("canvaat")]
-
     public GameObject canvas;
     public GameObject canvas1;
 
@@ -40,7 +39,6 @@ public class poistu : MonoBehaviour
     public InputField lisatieto1;
     public InputField maara1;
     public InputField verkkosivu1;
-
 
     public Transform ruudukkoja;
     public List<lluo> tavara_lista = new List<lluo>();
@@ -72,9 +70,11 @@ public class poistu : MonoBehaviour
 
         if (Application.internetReachability != NetworkReachability.NotReachable)
         {
+            // ILMOITETAAN LATAUSHALLINNALLE, ETTÄ SYNKRONOINTI ALKAA
+
+
             StartCoroutine(SynkronoiKaikki());
         }
-
     }
 
     // --- SYNKRONOINTI ---
@@ -88,6 +88,9 @@ public class poistu : MonoBehaviour
             yield return StartCoroutine(SendItemToServer(currentUserId, tuote));
         }
         yield return StartCoroutine(GetItemsForRegularLoad(currentUserId));
+
+        // ILMOITETAAN LATAUSHALLINNALLE, ETTÄ SYNKRONOINTI ON VALMIS
+        
     }
 
     // --- CRUD ---
@@ -113,6 +116,8 @@ public class poistu : MonoBehaviour
 
         if (Application.internetReachability != NetworkReachability.NotReachable)
         {
+            // Pikaiseen yksittäisen tuotteen lähetykseen ei välttämättä tarvita koko ruudun peittävää latausta,
+            // mutta jos haluat sen tähänkin, voit lisätä AloitaLataus() ja LopetaLataus() SendItemToServer-metodiin.
             StartCoroutine(SendItemToServer(currentUserId, uusi));
         }
 
@@ -157,7 +162,6 @@ public class poistu : MonoBehaviour
         }
     }
 
-    // KORJATTU: Käyttää nyt POST-metodia ja JSON-dataa 404-virheen sijaan
     IEnumerator GetItemsForRegularLoad(string userId)
     {
         string url = baseUrl + "/get_items";
@@ -185,7 +189,6 @@ public class poistu : MonoBehaviour
 
     IEnumerator DeleteItemFromServer(string userId, int itemId)
     {
-        // Huom: Varmista että Flaskissa on /delete_item/<user_id>/<item_id> reitti!
         string url = baseUrl + "/delete_item/" + userId + "/" + itemId;
         using (UnityWebRequest webRequest = UnityWebRequest.Delete(url))
         {
@@ -197,15 +200,15 @@ public class poistu : MonoBehaviour
 
     public void PyydaSiirtoavain(TextMeshProUGUI tekstiulos, TextMeshProUGUI aikatesktiulos)
     {
-
         if (isGeneratingKey) return;
 
         siirrä_Salaiset.vie();
 
+        // ILMOITETAAN LATAUSHALLINNALLE, ETTÄ AVAIMEN GENERUUTI ALKAA
+
         StartCoroutine(GenerateTransferKey(currentUserId, tekstiulos, aikatesktiulos));
     }
 
-    // Lisää tämä muuttuja luokan yläosaan muiden muuttujien joukkoon
     private Coroutine aktiivinenLaskuri;
 
     IEnumerator GenerateTransferKey(string userId, TextMeshProUGUI teksti, TextMeshProUGUI aikatesktiulos)
@@ -222,20 +225,15 @@ public class poistu : MonoBehaviour
             {
                 JSONNode jsonResponse = JSON.Parse(webRequest.downloadHandler.text);
                 currentOneTimeKey = jsonResponse["one_time_key"]?.Value;
-
-                // Flask palauttaa "expires_in", joka on sekunteja tästä hetkestä
                 int expirySekunnit = jsonResponse["expires_in"].AsInt;
 
                 teksti.text = $"Avain: <color=yellow>{currentOneTimeKey}</color>";
 
-                // --- TÄRKEÄ KORJAUS ---
-                // Jos vanha laskuri on vielä käynnissä, pysäytetään se ennen uuden aloitusta
                 if (aktiivinenLaskuri != null)
                 {
                     StopCoroutine(aktiivinenLaskuri);
                 }
 
-                // Käynnistetään uusi laskuri ja tallennetaan se muuttujaan
                 aktiivinenLaskuri = StartCoroutine(UpdateExpiryDisplay(expirySekunnit, aikatesktiulos));
             }
             else
@@ -244,11 +242,12 @@ public class poistu : MonoBehaviour
             }
         }
         isGeneratingKey = false;
+
+        // ILMOITETAAN LATAUSHALLINNALLE, ETTÄ AVAIN ON SAATU TAI PROSESSI PÄÄTTYI
     }
 
     IEnumerator UpdateExpiryDisplay(int totalSeconds, TextMeshProUGUI aikateskti)
     {
-        // Käytetään mieluummin reaaliaikaa kuin Time.timea, jotta laskenta on tarkempaa
         float loppuAika = Time.realtimeSinceStartup + totalSeconds;
 
         while (Time.realtimeSinceStartup < loppuAika)
@@ -260,12 +259,11 @@ public class poistu : MonoBehaviour
 
             aikateskti.text = string.Format("Voimassa: {0:00}:{1:00}", minuutit, sekunnit);
 
-            // Odotetaan tasan yksi sekunti reaaliaikaa
             yield return new WaitForSecondsRealtime(1f);
         }
 
         aikateskti.text = "<color=red>Vanhentunut</color>";
-        aktiivinenLaskuri = null; // Nollataan muuttuja, kun laskuri loppuu
+        aktiivinenLaskuri = null;
     }
 
     public void aseta_id(string id, TMP_InputField kerta_koodi, TextMeshProUGUI info)
@@ -278,34 +276,54 @@ public class poistu : MonoBehaviour
         currentUserId = newId;
         PlayerPrefs.SetString("CurrentUserId", currentUserId);
         PlayerPrefs.Save();
-        info.text = "Uusi ID asetettu onnsituneesti ja ladattu uudet tiedot";
+        info.text = "Uusi ID asetettu onnistuneesti ja ladattu uudet tiedot";
+
+        // ILMOITETAAN LATAUSHALLINNALLE, ETTÄ TIETOJEN HAKU UUDELLA ID:LLÄ ALKAA
+        
 
         if (!string.IsNullOrEmpty(key))
+        {
             StartCoroutine(GetItemsWithTransferKey(currentUserId, key, info));
+        }
         else
-            StartCoroutine(GetItemsForRegularLoad(currentUserId));
-            siirrä_Salaiset.tuo(id, kerta_koodi.ToString());
+        {
+            StartCoroutine(GetItemsForRegularLoadWithLoading(currentUserId));
+        }
+
+        // Korjattu logiikka: siirrä_Salaiset suoritetaan osana ID:n vaihtoa
+        siirrä_Salaiset.tuo(id, kerta_koodi.text);
+    }
+
+    // Apumetodi, joka hoitaa tavallisen latauksen latausruudun kuittauksen kanssa ID:n vaihdon yhteydessä
+    IEnumerator GetItemsForRegularLoadWithLoading(string userId)
+    {
+        yield return StartCoroutine(GetItemsForRegularLoad(userId));
+
     }
 
     IEnumerator GetItemsWithTransferKey(string userId, string key, TextMeshProUGUI varoitus)
     {
         string url = baseUrl + "/get_items";
-        
+
         var payload = new Dictionary<string, string> { { "user_id", userId }, { "one_time_key", key } };
         using (UnityWebRequest webRequest = CreatePostRequest(url, JsonConvert.SerializeObject(payload)))
         {
             yield return webRequest.SendWebRequest();
             if (webRequest.result == UnityWebRequest.Result.Success)
             {
-                varoitus.text = "Uusi ID asetettu onnsituneesti ja ladattu uudet tiedot!";
+                varoitus.text = "Uusi ID asetettu onnistuneesti ja ladattu uudet tiedot!";
                 var uusiLista = JsonConvert.DeserializeObject<List<ItemData>>(webRequest.downloadHandler.text);
                 offline_data_lista = uusiLista;
                 TallennaOfflineMuistiin();
                 PaivitaRuutu();
             }
-            else varoitus.text = "Sattui virhe id:n tai koodin asettamisessa yritä uudeleen";
+            else
+            {
+                varoitus.text = "Sattui virhe id:n tai koodin asettamisessa yritä uudelleen";
+            }
         }
-        
+
+        // ILMOITETAAN LATAUSHALLINNALLE, ETTÄ AVUIMELLA HAKU ON VALMIS
     }
 
     // --- APUMETODIT ---
@@ -360,6 +378,4 @@ public class poistu : MonoBehaviour
 
     public void OpenAddItemForm() { canvas.SetActive(true); canvas1.SetActive(false); }
     public void CloseAddItemForm() { canvas.SetActive(false); canvas1.SetActive(true); }
-
-
 }

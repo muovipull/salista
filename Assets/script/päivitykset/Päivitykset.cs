@@ -5,16 +5,21 @@ using System;
 using TMPro;
 using UnityEngine.Networking;
 
-public class Ohje : MonoBehaviour
+public class PÃ¤ivitykset : MonoBehaviour
 {
+    public Kirajudu_sisaaan kirajudu_Sisaaan;
+    [Header("Version tarkastaminen")]
+    public string tallennettu_versio;
+    [Header("Version asetukset")]
+    public TextMeshProUGUI versio_text;
     [Header("Hakuasetukset")]
-    public string baseRequestUrl = "http://192.168.101.195:7028/api";
+    public string baseRequestUrl = "http://127.0.0.1/api";
 
-    // Lista kaikista kategorioista, jotka haluat ladata heti
-    public List<string> kategoriat = new List<string> { };
+    [Header("Kategoriat")]
+    public List<string> kategoriat = new List<string>();
 
     [Header("UI Viittaukset")]
-    public GameObject ohje_sivu;
+    public GameObject paivitykset_sivu;
     public TextMeshProUGUI sivu_otsikko_teksti;
     public TextMeshProUGUI sivu_leipateksti;
 
@@ -26,21 +31,22 @@ public class Ohje : MonoBehaviour
     public class sivudata
     {
         public string otsikko;
-        [TextArea(1, 15)] public string tesksti; // Vanha kirjoitusasu
-        [TextArea(1, 15)] public string teksti;  // Oikeaoppinen kirjoitusasu varmistukseksi
+        [TextArea(1, 15)] public string tesksti;
+        [TextArea(1, 15)] public string teksti;
     }
 
     [Serializable]
-    private class OhjeDataWrapper { public List<sivudata> ohjeet; }
+    private class PaivitysDataWrapper { public List<sivudata> ohjeet; }
 
-    // Sanakirja (Dictionary) tallentaa kaikki ladatut sivut kategorian nimen mukaan
     private Dictionary<string, List<sivudata>> kaikkienSivujenMuisti = new Dictionary<string, List<sivudata>>();
     private int nykyinenIndeksi = 0;
 
     void Start()
     {
-        // ILMOITETAAN LATAUSHALLINNALLE, ETTÄ OHJEIDEN LATAUS ALKAA
+        if (versio_text != null) versio_text.text = $"V {Application.version}";
+        tallennettu_versio = PlayerPrefs.GetString("tallennettu versio1", "virhe");
 
+        // ILMOITETAAN LATAUSHALLINNALLE, ETTÃ„ MEILLÃ„ ALKAA LATAUS
 
         if (kategoriat.Count > 0)
         {
@@ -48,31 +54,43 @@ public class Ohje : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Ohje: Kategoriat-lista on tyhjä Unity Inspectorissa!");
-            // Jos ei ole ladattavaa, kuitataan lataus heti valmiiksi
-
+            StartCoroutine(Alku());
         }
+    }
+
+    IEnumerator Alku()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        if (tallennettu_versio != Application.version)
+        {
+            AvaaPaivitykset();
+            tallennettu_versio = Application.version;
+            PlayerPrefs.SetString("tallennettu versio1", Application.version);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            Sulje();
+        }
+
+        // TÃ„MÃ„ KOODI ON VALMIS: ILMOITETAAN LATAUSHALLINNALLE
+        
     }
 
     IEnumerator LataaKaikkiTaustalla()
     {
-        Debug.Log("Aloitetaan ohjeiden tarkistus palvelimelta...");
-
         foreach (string kat in kategoriat)
         {
             yield return TarkistaJaLataaKategoria(kat);
         }
-
-        Debug.Log("Kaikki ohjeet tarkistettu ja päivitetty!");
-
-        // ILMOITETAAN LATAUSHALLINNALLE, ETTÄ TÄMÄ KOODI ON SAANUT KAIKKI VALMIIKSI
-
+        StartCoroutine(Alku());
     }
 
+    // (TarkistaJaLataaKategoria, LataaDataPalvelimelta ja UI-metodit pysyvÃ¤t tÃ¤ysin samoina kuin ennen...)
     IEnumerator TarkistaJaLataaKategoria(string kategoria)
     {
         string paikallinenVersio = PlayerPrefs.GetString("Versio_" + kategoria, "0");
-        // Lisätty EscapeURL välilyöntien ja ääkkösten suojaksi
         string versioUrl = $"{baseRequestUrl}/checkversion?kategoria={UnityWebRequest.EscapeURL(kategoria)}";
 
         using (UnityWebRequest vRequest = UnityWebRequest.Get(versioUrl))
@@ -83,22 +101,16 @@ public class Ohje : MonoBehaviour
             {
                 string serverinVersio = vRequest.downloadHandler.text.Trim();
 
-                // Jos versio on uusi, ladataan data. Jos ei, ladataan silti muistiin, jos se puuttuu.
                 if (serverinVersio != paikallinenVersio || !kaikkienSivujenMuisti.ContainsKey(kategoria))
                 {
                     yield return LataaDataPalvelimelta(kategoria, serverinVersio);
                 }
-            }
-            else
-            {
-                Debug.LogError($"Ohje - Yhteysvirhe tarkistuksessa ({kategoria}): {vRequest.error}");
             }
         }
     }
 
     IEnumerator LataaDataPalvelimelta(string kategoria, string uusiVersio)
     {
-        // Lisätty EscapeURL välilyöntien ja ääkkösten suojaksi
         string latausUrl = $"{baseRequestUrl}/getdata?kategoria={UnityWebRequest.EscapeURL(kategoria)}";
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(latausUrl))
@@ -109,43 +121,31 @@ public class Ohje : MonoBehaviour
             {
                 try
                 {
-                    OhjeDataWrapper wrapper = JsonUtility.FromJson<OhjeDataWrapper>(webRequest.downloadHandler.text);
+                    PaivitysDataWrapper wrapper = JsonUtility.FromJson<PaivitysDataWrapper>(webRequest.downloadHandler.text);
 
                     if (wrapper != null && wrapper.ohjeet != null)
                     {
-                        // Tallennetaan sanakirjaan
                         kaikkienSivujenMuisti[kategoria] = wrapper.ohjeet;
-
-                        // Tallennetaan versio levylle
                         PlayerPrefs.SetString("Versio_" + kategoria, uusiVersio);
                         PlayerPrefs.Save();
-
-                        Debug.Log($"Kategoria '{kategoria}' päivitetty versioon {uusiVersio}");
                     }
                     else
                     {
-                        // Alustetaan tyhjä lista kaatumisten estämiseksi
                         kaikkienSivujenMuisti[kategoria] = new List<sivudata>();
                     }
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError($"Ohje - JSON-virhe kategoriassa {kategoria}: {e.Message}");
+                    Debug.LogError($"JSON-virhe kategoriassa {kategoria}: {e.Message}");
                 }
-            }
-            else
-            {
-                Debug.LogError($"Ohje - Yhteysvirhe datan latauksessa ({kategoria}): {webRequest.error}");
             }
         }
     }
 
-    // --- UI TOIMINNOT ---
-
-    public void AvaaOhjeet()
+    public void AvaaPaivitykset()
     {
-        if (ohje_sivu != null) ohje_sivu.SetActive(true);
-        nykyinenIndeksi = 0; // Aloitetaan ekasta kategoriasta
+        if (paivitykset_sivu != null) paivitykset_sivu.SetActive(true);
+        nykyinenIndeksi = 0;
         PaivitaUI();
     }
 
@@ -173,12 +173,10 @@ public class Ohje : MonoBehaviour
 
         string kat = kategoriat[nykyinenIndeksi];
 
-        // TURVATARKISTUS: Löytyykö kategoria ja onko siellä vähintään yksi sivu dataa
         if (kaikkienSivujenMuisti.ContainsKey(kat) && kaikkienSivujenMuisti[kat].Count > 0)
         {
             sivu_otsikko_teksti.text = kaikkienSivujenMuisti[kat][0].otsikko;
 
-            // Katsotaan kumpaa kirjoitusasua palvelin käytti leipätekstissä
             if (!string.IsNullOrEmpty(kaikkienSivujenMuisti[kat][0].teksti))
             {
                 sivu_leipateksti.text = kaikkienSivujenMuisti[kat][0].teksti;
@@ -190,18 +188,16 @@ public class Ohje : MonoBehaviour
         }
         else
         {
-            // Jos kategoria on tyhjä tai sitä ei saatu ladattua
             sivu_otsikko_teksti.text = kat;
-            sivu_leipateksti.text = "Tämän kategorian ohjetiedot ovat tyhjiä palvelimella tai lataus epäonnistui.";
+            sivu_leipateksti.text = "TÃ¤mÃ¤n kategorian pÃ¤ivitystiedot ovat tyhjiÃ¤ palvelimella.";
         }
 
-        // Nappien näkyvyys suojauksella
         if (seura_nappi != null) seura_nappi.SetActive(nykyinenIndeksi < kategoriat.Count - 1);
         if (edelli_nappi != null) edelli_nappi.SetActive(nykyinenIndeksi > 0);
     }
 
     public void Sulje()
     {
-        if (ohje_sivu != null) ohje_sivu.SetActive(false);
+        if (paivitykset_sivu != null) paivitykset_sivu.SetActive(false);
     }
 }

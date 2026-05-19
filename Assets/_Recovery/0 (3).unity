@@ -2076,7 +2076,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 786270589}
         m_TargetAssemblyTypeName: "p\xE4ivitys, Assembly-CSharp"
         m_MethodName: sulje
         m_Mode: 1
@@ -4497,83 +4497,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.AspectRatioFitter
   m_AspectMode: 3
   m_AspectRatio: 1
---- !u!1 &148170678
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 148170679}
-  - component: {fileID: 148170681}
-  - component: {fileID: 148170680}
-  m_Layer: 5
-  m_Name: Lataa
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &148170679
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148170678}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1129934114}
-  - {fileID: 252620338}
-  m_Father: {fileID: 1455873289}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &148170680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148170678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &148170681
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148170678}
-  m_CullTransparentMesh: 1
 --- !u!1 &151855335
 GameObject:
   m_ObjectHideFlags: 0
@@ -7810,81 +7733,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 251872915}
-  m_CullTransparentMesh: 1
---- !u!1 &252620337
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 252620338}
-  - component: {fileID: 252620340}
-  - component: {fileID: 252620339}
-  m_Layer: 5
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &252620338
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252620337}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 148170679}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.2119, y: -423.19275}
-  m_SizeDelta: {x: 500, y: 500}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &252620339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252620337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1b6ceda3dc4d4be4aaff19d31d2fb451, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 0
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &252620340
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252620337}
   m_CullTransparentMesh: 1
 --- !u!1 &253830329
 GameObject:
@@ -15041,9 +14889,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 786270592}
-        m_TargetAssemblyTypeName: "P\xE4ivitykset, Assembly-CSharp"
-        m_MethodName: Sulje
+      - m_Target: {fileID: 786270589}
+        m_TargetAssemblyTypeName: "p\xE4ivitys, Assembly-CSharp"
+        m_MethodName: sulje
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17845,9 +17693,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 786270592}
-        m_TargetAssemblyTypeName: "P\xE4ivitykset, Assembly-CSharp"
-        m_MethodName: AvaaPaivitykset
+      - m_Target: {fileID: 786270589}
+        m_TargetAssemblyTypeName: "p\xE4ivitys, Assembly-CSharp"
+        m_MethodName: avaa
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20771,9 +20619,9 @@ GameObject:
   - component: {fileID: 786270586}
   - component: {fileID: 786270587}
   - component: {fileID: 786270588}
+  - component: {fileID: 786270589}
   - component: {fileID: 786270590}
   - component: {fileID: 786270591}
-  - component: {fileID: 786270592}
   m_Layer: 0
   m_Name: koodi
   m_TagString: Untagged
@@ -20994,6 +20842,77 @@ MonoBehaviour:
   varapin_sivu: {fileID: 1953654883}
   varapin_uusi: {fileID: 97008686}
   varapin_vaihto_ilmoitus: {fileID: 1842075868}
+--- !u!114 &786270589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786270577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8ef489dfa3ff4a49a30c94ab633a13b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avauskerta: 0
+  "p\xE4ivitykset": {fileID: 1482021442}
+  versio_text: {fileID: 504356230}
+  versio: 
+  sivu: 1
+  seura_napppi: {fileID: 1312392348}
+  edelli_nappi: {fileID: 2108730294}
+  sivu_leipa: {fileID: 1826843902}
+  sivu_tekst: {fileID: 180599921}
+  haly: {fileID: 1375405149}
+  sivut:
+  - otsikko: Tulossa
+    tesksti: "Tulossa\nversiossa 2.8\n- 2.8.2 Osa sovelluksen tiedosta haetaan netist\xE4
+      kun niit\xE4 tarvitaan ja tallennetaan laitteelle\nversiossa 2.9\n - kaksi
+      vaiheseen tunnistautuminen useita tapoja\nversiossa 3.0\n-tietojen salaus\nversiossa
+      3.1\n- salasanojen kansiointi\nversiossa 3.2\n- tietojen p\xE4ivitys\nversiossa
+      3.3\n- Tietojen haku\nversiossa 3.4\n- tumma vaalea teema kaikkeen\n\n"
+  - otsikko: versio 2.8.1.0
+    tesksti: "v2.8.1.0\r\n- tietojen synkronointi usean laitteen v\xE4lill\xE4 mahdollista
+      nyt my\xF6s qr koodilla\r\n- uusi asetuksia\r\n- tallennetut salasanat ladataan
+      palvelimelta tai laitteelta riippuen yhteydest\xE4\r\n- sovelluksen tietoturvaa
+      on lis\xE4tty\r\n- Teema on muuttunut mustasta tumman harmaaksi\r\n- k\xE4ytt\xF6liittym\xE4n
+      ulkoasu on muutunut osassa paikassa"
+  - otsikko: versio 2.8.0 - 2.8.0.5
+    tesksti: "v2.8.0\r\n- tietojen synkronointi usean laitteen v\xE4lill\xE4\r\n-
+      uusi asetuksia\r\n- tallennetut salasanat ladataan palvelimelta\r\n- sovelluksen
+      tietoturvaa on lis\xE4tty\r\nv2.8.0.1\r\n- salansan tallennukseen voi luoda
+      suoraan satunnaisen salasanan\r\n- bugien korjauksia\r\nv2.8.0.2\r\n- sovelluksen
+      tietoturvaa on lis\xE4tty\r\nv2.8.0.3\r\n- version pystyy nyt piilottamaan\r\n-
+      salasanan tallennus on saanut p\xE4ivityksen\r\nv2.8.0.4\r\n- Suuri ui p\xE4ivitys
+      salasanoihin ja asetuksiin\r\nv2.8.0.4.1\r\n- tietosuojan korjaus\r\nv2.8.0.5\r\n-
+      tiedot tallentuu nyt my\xF6s omalle laitteelle ja nettiin.\r\n- bugien korjauksia "
+  - otsikko: versiot 2.7.9-2.7.9.3
+    tesksti: "v 2.7.9\r\nKorjaukset\r\n- tallennettujen salasanojen kopiointi\r\n-
+      tallennettujen s\xE4hk\xF6postien kopiointi\r\n- satunaisen salasanan kopiointi\r\n-
+      Bugien korjauksia\r\n- Ohjeiden p\xE4ivitt\xE4minen\r\n\r\nv 2.7.9.1\r\n- N\xE4yt\xF6n
+      skaalaus oikein\r\n- ominaisuuksia ladataan netist\xE4\r\n\r\nv 2.7.9.2\r\n-
+      Bugien korjauksia\r\n- Tietoturvap\xE4ivitys\r\n\r\nv 2.7.9.3\r\n- valmius
+      tietojen synkronointiin\r\n- Tietoturvap\xE4ivitys\r\n"
+  - otsikko: versiot 2.7.0-2.7.8
+    tesksti: "v 2.7.0\n- Kaksivaiheinen tunnistautuminen\nv 2.7.1\n- P\xE4ivitys
+      historia p\xE4ivitys\nv 2.7.2\n-bugien korjausta\nv 2.7.2\n-  muutoksia kaksivaiheiseen
+      tunnisatutumiseen\nv 2.7.3\n- Bugien korjausta\nv 2.7.4\n- Kosmettisia muokkauksia
+      asetuksiin\n- Kosmettisia muokkauksia kirjautumiseen\nv 2.7.5\n- Kosmettisia
+      muokkauksia p\xE4ivitys historiaan\nv 2.7.6\n- Kokeelliset ominaisuudet ovat
+      takaisin k\xE4yt\xF6ss\xE4.\n- P\xE4\xE4n\xE4ytt\xF6\xF6n kosmeettisia p\xE4ivityksi\xE4\nv
+      2.7.7\n- Varapinkoodi lis\xE4tty ja sen muuttaminen\nv 2.7.8 \n- P\xE4ivitys
+      satunnaisen salasanan luojaan\n- Bugien korjausta"
+  - otsikko: versiot 2.6-2.6.4
+    tesksti: "v 2.6\n-tumma ja vaaleateema asetukset \n-uusi lis\xE4tieto salsanan
+      tallenukseen verkkosivu \n-ohjeiden lis\xE4ys\n-koko ohjelman nollaus nappi
+      \nV 2.6.1 ja 2.6.2\n- bugien korjausta\nV 2.6.3\n- kokeelliset ominaisuuksien
+      poisto\n- bug korjauksia\nV 2.6.4\n- p\xE4ivityshistoria sivu p\xE4ivitys\n-
+      Bug korjauksia\n- Sovelluksen akunk\xE4yt\xF6n optimointi"
+  - otsikko: versiot 2.5.1-2.5.3
+    tesksti: "V 2.5.1 muutokset\n- lis\xE4simme satunnaisen salasana luojan\n- tallennettujen
+      salasanoijen kopiointi\n- tallennettujen s\xE4hk\xF6postien kopiointi\n- p\xE4ivitys
+      logi\nV 2.5.2 muutokset\n-p\xE4ivitys login saa auki asetuksista\nV 2.5.3\n-kokeelliset
+      ominaisuudet k\xE4ytt\xF6\xF6n\n"
 --- !u!114 &786270590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21031,36 +20950,6 @@ MonoBehaviour:
   tahantoisestaqr: {fileID: 1156583421}
   qrvalikko: {fileID: 1502313014}
   id_paakaikki_asiat: {fileID: 1488124289}
---- !u!114 &786270592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 786270577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7339600f98e551344be954d9a64f9545, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: "Assembly-CSharp::P\xE4ivitykset"
-  kirajudu_Sisaaan: {fileID: 828977981}
-  tallennettu_versio: 
-  versio_text: {fileID: 504356230}
-  baseRequestUrl: https://salista.lepuutin.com/api
-  kategoriat:
-  - uusin
-  - Tulossa
-  - versio 2.8.1.1 - 2.8.1.3
-  - versio 2.8.0 - 2.8.0.5
-  - versiot 2.7.9-2.7.9.3
-  - versiot 2.7.0-2.7.8
-  - versiot 2.6-2.6.4
-  - versiot 2.5.1-2.5.3
-  paivitykset_sivu: {fileID: 1482021442}
-  sivu_otsikko_teksti: {fileID: 180599921}
-  sivu_leipateksti: {fileID: 1826843902}
-  seura_nappi: {fileID: 1312392348}
-  edelli_nappi: {fileID: 2108730294}
 --- !u!1 &786810886
 GameObject:
   m_ObjectHideFlags: 0
@@ -21969,7 +21858,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 786270589}
         m_TargetAssemblyTypeName: "p\xE4ivitys, Assembly-CSharp"
         m_MethodName: edllinen
         m_Mode: 1
@@ -29188,143 +29077,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
---- !u!1 &1129934113
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1129934114}
-  - component: {fileID: 1129934116}
-  - component: {fileID: 1129934115}
-  m_Layer: 5
-  m_Name: odota hetki sovulles lataa tiedostoja tausstalla
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1129934114
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129934113}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 148170679}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 216.80615}
-  m_SizeDelta: {x: 1080, y: 483.6123}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1129934115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129934113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Odota hetki sovulles lataa tiedostoja taustalla
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_characterHorizontalScale: 1
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1129934116
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129934113}
-  m_CullTransparentMesh: 1
 --- !u!1 &1133567467
 GameObject:
   m_ObjectHideFlags: 0
@@ -33452,9 +33204,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 786270592}
-        m_TargetAssemblyTypeName: "P\xE4ivitykset, Assembly-CSharp"
-        m_MethodName: Seuraava
+      - m_Target: {fileID: 786270589}
+        m_TargetAssemblyTypeName: "p\xE4ivitys, Assembly-CSharp"
+        m_MethodName: seuraava
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -36777,7 +36529,6 @@ RectTransform:
   - {fileID: 157257506}
   - {fileID: 82021324}
   - {fileID: 291057374}
-  - {fileID: 148170679}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -38706,7 +38457,6 @@ GameObject:
   - component: {fileID: 1519206098}
   - component: {fileID: 1519206097}
   - component: {fileID: 1519206096}
-  - component: {fileID: 1519206100}
   m_Layer: 5
   m_Name: "p\xE4ivitys testaus"
   m_TagString: Untagged
@@ -38798,77 +38548,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1519206100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519206095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8ef489dfa3ff4a49a30c94ab633a13b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avauskerta: 0
-  "p\xE4ivitykset": {fileID: 1482021442}
-  versio_text: {fileID: 504356230}
-  versio: 
-  sivu: 1
-  seura_napppi: {fileID: 1312392348}
-  edelli_nappi: {fileID: 2108730294}
-  sivu_leipa: {fileID: 1826843902}
-  sivu_tekst: {fileID: 180599921}
-  haly: {fileID: 1375405149}
-  sivut:
-  - otsikko: Tulossa
-    tesksti: "Tulossa\nversiossa 2.8\n- 2.8.2 Osa sovelluksen tiedosta haetaan netist\xE4
-      kun niit\xE4 tarvitaan ja tallennetaan laitteelle\nversiossa 2.9\n - kaksi
-      vaiheseen tunnistautuminen useita tapoja\nversiossa 3.0\n-tietojen salaus\nversiossa
-      3.1\n- salasanojen kansiointi\nversiossa 3.2\n- tietojen p\xE4ivitys\nversiossa
-      3.3\n- Tietojen haku\nversiossa 3.4\n- tumma vaalea teema kaikkeen\n\n"
-  - otsikko: versio 2.8.1.0
-    tesksti: "v2.8.1.0\r\n- tietojen synkronointi usean laitteen v\xE4lill\xE4 mahdollista
-      nyt my\xF6s qr koodilla\r\n- uusi asetuksia\r\n- tallennetut salasanat ladataan
-      palvelimelta tai laitteelta riippuen yhteydest\xE4\r\n- sovelluksen tietoturvaa
-      on lis\xE4tty\r\n- Teema on muuttunut mustasta tumman harmaaksi\r\n- k\xE4ytt\xF6liittym\xE4n
-      ulkoasu on muutunut osassa paikassa"
-  - otsikko: versio 2.8.0 - 2.8.0.5
-    tesksti: "v2.8.0\r\n- tietojen synkronointi usean laitteen v\xE4lill\xE4\r\n-
-      uusi asetuksia\r\n- tallennetut salasanat ladataan palvelimelta\r\n- sovelluksen
-      tietoturvaa on lis\xE4tty\r\nv2.8.0.1\r\n- salansan tallennukseen voi luoda
-      suoraan satunnaisen salasanan\r\n- bugien korjauksia\r\nv2.8.0.2\r\n- sovelluksen
-      tietoturvaa on lis\xE4tty\r\nv2.8.0.3\r\n- version pystyy nyt piilottamaan\r\n-
-      salasanan tallennus on saanut p\xE4ivityksen\r\nv2.8.0.4\r\n- Suuri ui p\xE4ivitys
-      salasanoihin ja asetuksiin\r\nv2.8.0.4.1\r\n- tietosuojan korjaus\r\nv2.8.0.5\r\n-
-      tiedot tallentuu nyt my\xF6s omalle laitteelle ja nettiin.\r\n- bugien korjauksia "
-  - otsikko: versiot 2.7.9-2.7.9.3
-    tesksti: "v 2.7.9\r\nKorjaukset\r\n- tallennettujen salasanojen kopiointi\r\n-
-      tallennettujen s\xE4hk\xF6postien kopiointi\r\n- satunaisen salasanan kopiointi\r\n-
-      Bugien korjauksia\r\n- Ohjeiden p\xE4ivitt\xE4minen\r\n\r\nv 2.7.9.1\r\n- N\xE4yt\xF6n
-      skaalaus oikein\r\n- ominaisuuksia ladataan netist\xE4\r\n\r\nv 2.7.9.2\r\n-
-      Bugien korjauksia\r\n- Tietoturvap\xE4ivitys\r\n\r\nv 2.7.9.3\r\n- valmius
-      tietojen synkronointiin\r\n- Tietoturvap\xE4ivitys\r\n"
-  - otsikko: versiot 2.7.0-2.7.8
-    tesksti: "v 2.7.0\n- Kaksivaiheinen tunnistautuminen\nv 2.7.1\n- P\xE4ivitys
-      historia p\xE4ivitys\nv 2.7.2\n-bugien korjausta\nv 2.7.2\n-  muutoksia kaksivaiheiseen
-      tunnisatutumiseen\nv 2.7.3\n- Bugien korjausta\nv 2.7.4\n- Kosmettisia muokkauksia
-      asetuksiin\n- Kosmettisia muokkauksia kirjautumiseen\nv 2.7.5\n- Kosmettisia
-      muokkauksia p\xE4ivitys historiaan\nv 2.7.6\n- Kokeelliset ominaisuudet ovat
-      takaisin k\xE4yt\xF6ss\xE4.\n- P\xE4\xE4n\xE4ytt\xF6\xF6n kosmeettisia p\xE4ivityksi\xE4\nv
-      2.7.7\n- Varapinkoodi lis\xE4tty ja sen muuttaminen\nv 2.7.8 \n- P\xE4ivitys
-      satunnaisen salasanan luojaan\n- Bugien korjausta"
-  - otsikko: versiot 2.6-2.6.4
-    tesksti: "v 2.6\n-tumma ja vaaleateema asetukset \n-uusi lis\xE4tieto salsanan
-      tallenukseen verkkosivu \n-ohjeiden lis\xE4ys\n-koko ohjelman nollaus nappi
-      \nV 2.6.1 ja 2.6.2\n- bugien korjausta\nV 2.6.3\n- kokeelliset ominaisuuksien
-      poisto\n- bug korjauksia\nV 2.6.4\n- p\xE4ivityshistoria sivu p\xE4ivitys\n-
-      Bug korjauksia\n- Sovelluksen akunk\xE4yt\xF6n optimointi"
-  - otsikko: versiot 2.5.1-2.5.3
-    tesksti: "V 2.5.1 muutokset\n- lis\xE4simme satunnaisen salasana luojan\n- tallennettujen
-      salasanoijen kopiointi\n- tallennettujen s\xE4hk\xF6postien kopiointi\n- p\xE4ivitys
-      logi\nV 2.5.2 muutokset\n-p\xE4ivitys login saa auki asetuksista\nV 2.5.3\n-kokeelliset
-      ominaisuudet k\xE4ytt\xF6\xF6n\n"
 --- !u!1 &1522521403
 GameObject:
   m_ObjectHideFlags: 0
@@ -49409,7 +49088,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 786270589}
         m_TargetAssemblyTypeName: "p\xE4ivitys, Assembly-CSharp"
         m_MethodName: seuraava
         m_Mode: 1
@@ -51924,7 +51603,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 786270589}
         m_TargetAssemblyTypeName: "p\xE4ivitys, Assembly-CSharp"
         m_MethodName: avaa
         m_Mode: 1
@@ -52057,9 +51736,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 786270592}
-        m_TargetAssemblyTypeName: "P\xE4ivitykset, Assembly-CSharp"
-        m_MethodName: Edellinen
+      - m_Target: {fileID: 786270589}
+        m_TargetAssemblyTypeName: "p\xE4ivitys, Assembly-CSharp"
+        m_MethodName: edllinen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -53471,5 +53150,5 @@ SceneRoots:
   - {fileID: 229098700}
   - {fileID: 1685856073}
   - {fileID: 961914447}
-  - {fileID: 789264875}
   - {fileID: 1519206099}
+  - {fileID: 789264875}
